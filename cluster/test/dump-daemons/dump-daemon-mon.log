@@ -1,0 +1,10 @@
+mon daemon started at Mon Jun  1 16:07:39 PDT 2015
+config: /user/msevilla/mds/ceph-deploy/config/cluster.sh
+out: /mnt/vol2/msevilla/ceph-logs
+log: /mnt/vol2/msevilla/ceph-logs/dump-daemons/dump-daemon-mon.log
+hostname: issdm-3
+===================
+... cleaning up
+Cleaning up OSDs...
+--- SETTING UP MON issdm-3
+0... 1... 2... 3... 

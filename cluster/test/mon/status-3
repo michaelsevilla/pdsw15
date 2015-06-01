@@ -1,0 +1,14 @@
+    cluster 54665519-f032-44cf-9b8f-86bd498e624d
+     health HEALTH_WARN
+            5900 pgs stale
+            5900 pgs stuck stale
+            too many PGs per OSD (1651 > max 300)
+            crush map has legacy tunables
+     monmap e1: 1 mons at {issdm-3=192.168.141.103:6789/0}
+            election epoch 2, quorum 0 issdm-3
+     mdsmap e5: 1/1/4 up {0=issdm-15=up:active}
+     osdmap e90: 18 osds: 5 up, 5 in
+      pgmap v1915: 8256 pgs, 3 pools, 1940 bytes data, 20 objects
+            203 MB used, 1163 GB / 1163 GB avail
+                5900 stale+active+clean
+                2356 active+clean
