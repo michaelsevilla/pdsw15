@@ -1,0 +1,11 @@
+client daemon started at Tue Jun  2 14:37:12 PDT 2015
+config: /user/msevilla/mds/ceph-deploy/config/cluster.sh
+out: /mnt/vol2/msevilla/ceph-logs
+log: /mnt/vol2/msevilla/ceph-logs/dump-daemons/dump-daemon-client.log
+hostname: issdm-5
+===================
+... cleaning up
+sudo: /cleanup.sh: command not found
+SETTING UP CLIENT issdm-5
+... launching collectl
+0... 1... 2... 3... 4... 5... 

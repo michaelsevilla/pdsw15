@@ -1,0 +1,11 @@
+mon daemon started at Tue Jun  2 14:37:00 PDT 2015
+config: /user/msevilla/mds/ceph-deploy/config/cluster.sh
+out: /mnt/vol2/msevilla/ceph-logs
+log: /mnt/vol2/msevilla/ceph-logs/dump-daemons/dump-daemon-mon.log
+hostname: issdm-3
+===================
+... cleaning up
+sudo: /cleanup.sh: command not found
+--- SETTING UP MON issdm-3
+cp: cannot stat `/user/msevilla/mds/run.sh': No such file or directory
+0... 1... 2... 3... 4... 5... 
