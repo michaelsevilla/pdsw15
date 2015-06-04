@@ -1,3 +1,9 @@
 [submodule "cluster/test/deploy/mds"]
 	path = cluster/test/deploy/mds
 	url = https://github.com/michaelsevilla/mds.git
+[submodule "cluster/1client/src/ceph"]
+	path = cluster/1client/src/ceph
+	url = https://github.com/michaelsevilla/ceph.git
+[submodule "cluster/1client/src/mds"]
+	path = cluster/1client/src/mds
+	url = https://github.com/michaelsevilla/mds.git

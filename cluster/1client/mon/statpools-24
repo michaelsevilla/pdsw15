@@ -1,0 +1,10 @@
+pool rbd id 0
+  nothing is going on
+
+pool cephfs_data id 3
+  client io 0 B/s wr, 11 op/s
+
+pool cephfs_metadata id 4
+  client io 257 kB/s wr, 148 op/s
+
+
