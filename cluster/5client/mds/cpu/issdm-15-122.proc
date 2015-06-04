@@ -1,0 +1,458 @@
+top - 13:24:17 up 9 days,  4:56,  0 users,  load average: 0.06, 0.59, 0.66
+Tasks: 141 total,   1 running, 140 sleeping,   0 stopped,   0 zombie
+Cpu0  :  0.2%us,  0.1%sy,  0.0%ni, 99.5%id,  0.2%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu1  :  0.2%us,  0.1%sy,  0.0%ni, 99.6%id,  0.1%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu2  :  0.1%us,  0.1%sy,  0.0%ni, 99.8%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu3  :  0.1%us,  0.1%sy,  0.0%ni, 99.7%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8177412k total,  4877552k used,  3299860k free,   296596k buffers
+Swap:  8386556k total,        0k used,  8386556k free,  2429060k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND            
+ 8053 root      20   0 2292m 1.8g 118m S    2 22.7  47:28.45 ceph-mds           
+    1 root      20   0 24456 2380 1272 S    0  0.0   0:04.72 init               
+    2 root      20   0     0    0    0 S    0  0.0   0:00.00 kthreadd           
+    3 root      20   0     0    0    0 S    0  0.0   0:28.45 ksoftirqd/0        
+    5 root      20   0     0    0    0 S    0  0.0   0:07.38 kworker/u:0        
+    6 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/0        
+    7 root      RT   0     0    0    0 S    0  0.0   0:02.78 watchdog/0         
+    8 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/1        
+   10 root      20   0     0    0    0 S    0  0.0   0:24.53 ksoftirqd/1        
+   12 root      RT   0     0    0    0 S    0  0.0   0:02.26 watchdog/1         
+   13 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/2        
+   15 root      20   0     0    0    0 S    0  0.0   0:22.40 ksoftirqd/2        
+   16 root      RT   0     0    0    0 S    0  0.0   0:02.29 watchdog/2         
+   17 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/3        
+   18 root      20   0     0    0    0 S    0  0.0   0:01.30 kworker/3:0        
+   19 root      20   0     0    0    0 S    0  0.0   0:25.25 ksoftirqd/3        
+   20 root      RT   0     0    0    0 S    0  0.0   0:02.24 watchdog/3         
+   21 root       0 -20     0    0    0 S    0  0.0   0:00.00 cpuset             
+   22 root       0 -20     0    0    0 S    0  0.0   0:00.00 khelper            
+   23 root      20   0     0    0    0 S    0  0.0   0:00.00 kdevtmpfs          
+   24 root       0 -20     0    0    0 S    0  0.0   0:00.00 netns              
+   25 root      20   0     0    0    0 S    0  0.0   0:01.64 sync_supers        
+   26 root      20   0     0    0    0 S    0  0.0   0:00.05 bdi-default        
+   27 root       0 -20     0    0    0 S    0  0.0   0:00.00 kintegrityd        
+   28 root       0 -20     0    0    0 S    0  0.0   0:00.00 kblockd            
+   29 root       0 -20     0    0    0 S    0  0.0   0:00.00 ata_sff            
+   30 root      20   0     0    0    0 S    0  0.0   0:00.00 khubd              
+   31 root       0 -20     0    0    0 S    0  0.0   0:00.00 md                 
+   62 root      20   0     0    0    0 S    0  0.0   0:00.28 khungtaskd         
+   63 root      20   0     0    0    0 S    0  0.0   0:00.00 kswapd0            
+   64 root      20   0     0    0    0 S    0  0.0   0:00.00 kswapd1            
+   65 root      25   5     0    0    0 S    0  0.0   0:00.00 ksmd               
+   66 root      39  19     0    0    0 S    0  0.0   0:00.00 khugepaged         
+   67 root      20   0     0    0    0 S    0  0.0   0:00.00 fsnotify_mark      
+   68 root      20   0     0    0    0 S    0  0.0   0:00.00 ecryptfs-kthrea    
+   69 root       0 -20     0    0    0 S    0  0.0   0:00.00 crypto             
+   77 root       0 -20     0    0    0 S    0  0.0   0:00.00 kthrotld           
+  113 root       0 -20     0    0    0 S    0  0.0   0:00.00 deferwq            
+  114 root       0 -20     0    0    0 S    0  0.0   0:00.00 devfreq_wq         
+  218 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_0          
+  225 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_1          
+  232 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_2          
+  234 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_3          
+  240 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_4          
+  245 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_5          
+  248 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/u:7        
+  312 root      20   0     0    0    0 S    0  0.0   0:10.01 jbd2/sda1-8        
+  313 root       0 -20     0    0    0 S    0  0.0   0:00.00 ext4-dio-unwrit    
+  320 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_6          
+  321 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_7          
+  438 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  439 root      20   0 19200 1028  740 S    0  0.0   0:00.77 rpcbind            
+  449 statd     20   0 21504 1332  876 S    0  0.0   0:00.00 rpc.statd          
+  455 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  456 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  468 root      20   0 17908 1168  468 S    0  0.0   0:00.13 upstart-udev-br    
+  483 root      20   0     0    0    0 S    0  0.0   0:01.71 kworker/1:1        
+  486 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  488 root      20   0 22100 1880  772 S    0  0.0   0:00.10 udevd              
+  492 root       0 -20     0    0    0 S    0  0.0   0:00.00 rpciod             
+  493 root       0 -20     0    0    0 S    0  0.0   0:00.00 nfsiod             
+  518 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  519 statd     20   0 25744 1472  984 S    0  0.0   0:00.00 rpc.statd          
+  523 root      20   0 25540  680  436 S    0  0.0   0:00.00 rpc.idmapd         
+  525 messageb  20   0 23940 1116  780 S    0  0.0   0:01.17 dbus-daemon        
+  707 root      20   0     0    0    0 S    0  0.0   0:04.32 flush-8:0          
+  708 root       0 -20     0    0    0 S    0  0.0   0:00.00 mthca_catas        
+  710 root       0 -20     0    0    0 S    0  0.0   0:00.00 edac-poller        
+  750 root       0 -20     0    0    0 S    0  0.0   0:00.00 kpsmoused          
+  764 syslog    20   0  244m 5000 1132 S    0  0.1   1:19.81 rsyslogd           
+  806 root      20   0 15188  392  196 S    0  0.0   0:00.01 upstart-socket-    
+  808 root       0 -20     0    0    0 S    0  0.0   0:00.00 ib_mad1            
+  979 root      20   0  7264  980  480 S    0  0.0   0:00.62 dhclient3          
+ 1035 root      20   0  7264  984  480 S    0  0.0   0:00.58 dhclient3          
+ 1082 root      20   0     0    0    0 S    0  0.0   0:00.00 lockd              
+ 1090 root      20   0 50036 2880 2272 S    0  0.0   0:00.26 sshd               
+ 1321 root      20   0 14504  956  792 S    0  0.0   0:00.00 getty              
+ 1329 root      20   0 14504  948  792 S    0  0.0   0:00.00 getty              
+ 1345 root      20   0 14504  960  792 S    0  0.0   0:00.00 getty              
+ 1346 root      20   0 14504  956  792 S    0  0.0   0:00.00 getty              
+ 1348 root      20   0 14504  952  792 S    0  0.0   0:00.00 getty              
+ 1376 root      20   0  4328  688  560 S    0  0.0   0:00.00 acpid              
+ 1380 root      20   0 19112  996  760 S    0  0.0   0:08.83 cron               
+ 1381 daemon    20   0 16908  380  220 S    0  0.0   0:00.00 atd                
+ 1398 root      20   0 15980  680  504 S    0  0.0   1:25.40 irqbalance         
+ 1415 whoopsie  20   0  183m 4068 2864 S    0  0.0   0:00.02 whoopsie           
+ 1416 root      20   0     0    0    0 S    0  0.0   0:00.11 kworker/2:2        
+ 1472 root      20   0     0    0    0 S    0  0.0   0:01.26 kworker/0:2        
+ 1490 root      20   0 34968 1248  964 S    0  0.0   0:18.74 ha_logd            
+ 1493 root      20   0 34968  724  448 S    0  0.0   0:18.23 ha_logd            
+ 1503 root      20   0 64144 4028 1224 S    0  0.0   0:16.60 php5-fpm           
+ 1504 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1505 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1506 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1507 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1602 root      20   0 25108 1628 1316 S    0  0.0   0:02.52 master             
+ 1617 postfix   20   0 27336 1752 1424 S    0  0.0   0:00.40 qmgr               
+ 1648 redis     20   0 10676 1392  528 S    0  0.0   2:39.66 redis-server       
+ 1684 root      20   0  156m  65m 3384 S    0  0.8  17:11.32 puppet             
+ 1763 root      20   0 14504  948  792 S    0  0.0   0:00.00 getty              
+ 2062 ntp       20   0 37780 2176 1552 S    0  0.0   0:17.39 ntpd               
+ 2076 root      20   0 2042m 3876 2720 S    0  0.0   0:05.67 console-kit-dae    
+ 2143 root      20   0  182m 3184 2568 S    0  0.0   0:01.50 polkitd            
+ 3087 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfsalloc           
+ 3089 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs_mru_cache      
+ 3091 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfslogd            
+ 7326 root      20   0  768m 3108 2224 S    0  0.0   0:00.29 lttng-sessiond     
+ 9721 root      20   0     0    0    0 S    0  0.0   0:08.34 kworker/3:2        
+11848 root      20   0     0    0    0 S    0  0.0   0:00.01 xfsbufd/sdb1       
+11849 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdb1      
+11850 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdb1      
+11851 root      20   0     0    0    0 S    0  0.0   1:58.72 xfsaild/sdb1       
+11854 root      20   0     0    0    0 S    0  0.0   0:00.22 xfsbufd/sdc1       
+11855 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdc1      
+11856 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdc1      
+11857 root      20   0     0    0    0 S    0  0.0   1:56.47 xfsaild/sdc1       
+11860 root      20   0     0    0    0 S    0  0.0   0:00.01 xfsbufd/sdd1       
+11861 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdd1      
+11862 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdd1      
+11863 root      20   0     0    0    0 S    0  0.0   2:00.51 xfsaild/sdd1       
+11995 root      20   0     0    0    0 S    0  0.0   0:02.67 kworker/1:0        
+12543 root      20   0 22096 1396  284 S    0  0.0   0:00.00 udevd              
+12544 root      20   0 21920 1032  100 S    0  0.0   0:00.00 udevd              
+12555 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsIO              
+12556 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12557 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12558 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12559 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12560 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsSync            
+14086 root      20   0  945m 111m 111m S    0  1.4   0:06.54 lttng-consumerd    
+23572 root      20   0     0    0    0 S    0  0.0   0:03.82 kworker/0:0        
+23923 root      20   0     0    0    0 S    0  0.0   0:00.03 kworker/2:1        
+26323 postfix   20   0 27172 1488 1208 S    0  0.0   0:00.00 pickup             
+29004 root      20   0     0    0    0 S    0  0.0   0:00.01 kworker/2:0        
+29144 root      20   0 81956 3824 2976 S    0  0.0   0:00.01 sshd               
+29300 msevilla  20   0 81956 1568  720 S    0  0.0   0:00.00 sshd               
+29301 msevilla  20   0 11060 1484 1244 S    0  0.0   0:00.29 dump-daemon.sh     
+29380 root      20   0 60424  19m 1244 S    0  0.2   0:02.95 collectl           
+29394 root      20   0     0    0    0 S    0  0.0   0:00.04 flush-8:32         
+32647 msevilla  20   0 17332 1264  924 R    0  0.0   0:00.00 top                
+32648 msevilla  20   0  5880  608  516 S    0  0.0   0:00.00 sleep              
+
+
+top - 13:24:18 up 9 days,  4:56,  0 users,  load average: 0.06, 0.59, 0.66
+Tasks: 141 total,   1 running, 140 sleeping,   0 stopped,   0 zombie
+Cpu0  :  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu1  :  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu2  :  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu3  :  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8177412k total,  4877552k used,  3299860k free,   296596k buffers
+Swap:  8386556k total,        0k used,  8386556k free,  2429060k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND            
+32647 msevilla  20   0 17340 1280  940 R    2  0.0   0:00.01 top                
+    1 root      20   0 24456 2380 1272 S    0  0.0   0:04.72 init               
+    2 root      20   0     0    0    0 S    0  0.0   0:00.00 kthreadd           
+    3 root      20   0     0    0    0 S    0  0.0   0:28.45 ksoftirqd/0        
+    5 root      20   0     0    0    0 S    0  0.0   0:07.38 kworker/u:0        
+    6 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/0        
+    7 root      RT   0     0    0    0 S    0  0.0   0:02.78 watchdog/0         
+    8 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/1        
+   10 root      20   0     0    0    0 S    0  0.0   0:24.53 ksoftirqd/1        
+   12 root      RT   0     0    0    0 S    0  0.0   0:02.26 watchdog/1         
+   13 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/2        
+   15 root      20   0     0    0    0 S    0  0.0   0:22.40 ksoftirqd/2        
+   16 root      RT   0     0    0    0 S    0  0.0   0:02.29 watchdog/2         
+   17 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/3        
+   18 root      20   0     0    0    0 S    0  0.0   0:01.30 kworker/3:0        
+   19 root      20   0     0    0    0 S    0  0.0   0:25.25 ksoftirqd/3        
+   20 root      RT   0     0    0    0 S    0  0.0   0:02.24 watchdog/3         
+   21 root       0 -20     0    0    0 S    0  0.0   0:00.00 cpuset             
+   22 root       0 -20     0    0    0 S    0  0.0   0:00.00 khelper            
+   23 root      20   0     0    0    0 S    0  0.0   0:00.00 kdevtmpfs          
+   24 root       0 -20     0    0    0 S    0  0.0   0:00.00 netns              
+   25 root      20   0     0    0    0 S    0  0.0   0:01.64 sync_supers        
+   26 root      20   0     0    0    0 S    0  0.0   0:00.05 bdi-default        
+   27 root       0 -20     0    0    0 S    0  0.0   0:00.00 kintegrityd        
+   28 root       0 -20     0    0    0 S    0  0.0   0:00.00 kblockd            
+   29 root       0 -20     0    0    0 S    0  0.0   0:00.00 ata_sff            
+   30 root      20   0     0    0    0 S    0  0.0   0:00.00 khubd              
+   31 root       0 -20     0    0    0 S    0  0.0   0:00.00 md                 
+   62 root      20   0     0    0    0 S    0  0.0   0:00.28 khungtaskd         
+   63 root      20   0     0    0    0 S    0  0.0   0:00.00 kswapd0            
+   64 root      20   0     0    0    0 S    0  0.0   0:00.00 kswapd1            
+   65 root      25   5     0    0    0 S    0  0.0   0:00.00 ksmd               
+   66 root      39  19     0    0    0 S    0  0.0   0:00.00 khugepaged         
+   67 root      20   0     0    0    0 S    0  0.0   0:00.00 fsnotify_mark      
+   68 root      20   0     0    0    0 S    0  0.0   0:00.00 ecryptfs-kthrea    
+   69 root       0 -20     0    0    0 S    0  0.0   0:00.00 crypto             
+   77 root       0 -20     0    0    0 S    0  0.0   0:00.00 kthrotld           
+  113 root       0 -20     0    0    0 S    0  0.0   0:00.00 deferwq            
+  114 root       0 -20     0    0    0 S    0  0.0   0:00.00 devfreq_wq         
+  218 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_0          
+  225 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_1          
+  232 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_2          
+  234 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_3          
+  240 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_4          
+  245 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_5          
+  248 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/u:7        
+  312 root      20   0     0    0    0 S    0  0.0   0:10.01 jbd2/sda1-8        
+  313 root       0 -20     0    0    0 S    0  0.0   0:00.00 ext4-dio-unwrit    
+  320 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_6          
+  321 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_7          
+  438 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  439 root      20   0 19200 1028  740 S    0  0.0   0:00.77 rpcbind            
+  449 statd     20   0 21504 1332  876 S    0  0.0   0:00.00 rpc.statd          
+  455 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  456 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  468 root      20   0 17908 1168  468 S    0  0.0   0:00.13 upstart-udev-br    
+  483 root      20   0     0    0    0 S    0  0.0   0:01.71 kworker/1:1        
+  486 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  488 root      20   0 22100 1880  772 S    0  0.0   0:00.10 udevd              
+  492 root       0 -20     0    0    0 S    0  0.0   0:00.00 rpciod             
+  493 root       0 -20     0    0    0 S    0  0.0   0:00.00 nfsiod             
+  518 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  519 statd     20   0 25744 1472  984 S    0  0.0   0:00.00 rpc.statd          
+  523 root      20   0 25540  680  436 S    0  0.0   0:00.00 rpc.idmapd         
+  525 messageb  20   0 23940 1116  780 S    0  0.0   0:01.17 dbus-daemon        
+  707 root      20   0     0    0    0 S    0  0.0   0:04.32 flush-8:0          
+  708 root       0 -20     0    0    0 S    0  0.0   0:00.00 mthca_catas        
+  710 root       0 -20     0    0    0 S    0  0.0   0:00.00 edac-poller        
+  750 root       0 -20     0    0    0 S    0  0.0   0:00.00 kpsmoused          
+  764 syslog    20   0  244m 5000 1132 S    0  0.1   1:19.81 rsyslogd           
+  806 root      20   0 15188  392  196 S    0  0.0   0:00.01 upstart-socket-    
+  808 root       0 -20     0    0    0 S    0  0.0   0:00.00 ib_mad1            
+  979 root      20   0  7264  980  480 S    0  0.0   0:00.62 dhclient3          
+ 1035 root      20   0  7264  984  480 S    0  0.0   0:00.58 dhclient3          
+ 1082 root      20   0     0    0    0 S    0  0.0   0:00.00 lockd              
+ 1090 root      20   0 50036 2880 2272 S    0  0.0   0:00.26 sshd               
+ 1321 root      20   0 14504  956  792 S    0  0.0   0:00.00 getty              
+ 1329 root      20   0 14504  948  792 S    0  0.0   0:00.00 getty              
+ 1345 root      20   0 14504  960  792 S    0  0.0   0:00.00 getty              
+ 1346 root      20   0 14504  956  792 S    0  0.0   0:00.00 getty              
+ 1348 root      20   0 14504  952  792 S    0  0.0   0:00.00 getty              
+ 1376 root      20   0  4328  688  560 S    0  0.0   0:00.00 acpid              
+ 1380 root      20   0 19112  996  760 S    0  0.0   0:08.83 cron               
+ 1381 daemon    20   0 16908  380  220 S    0  0.0   0:00.00 atd                
+ 1398 root      20   0 15980  680  504 S    0  0.0   1:25.40 irqbalance         
+ 1415 whoopsie  20   0  183m 4068 2864 S    0  0.0   0:00.02 whoopsie           
+ 1416 root      20   0     0    0    0 S    0  0.0   0:00.11 kworker/2:2        
+ 1472 root      20   0     0    0    0 S    0  0.0   0:01.26 kworker/0:2        
+ 1490 root      20   0 34968 1248  964 S    0  0.0   0:18.74 ha_logd            
+ 1493 root      20   0 34968  724  448 S    0  0.0   0:18.23 ha_logd            
+ 1503 root      20   0 64144 4028 1224 S    0  0.0   0:16.60 php5-fpm           
+ 1504 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1505 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1506 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1507 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1602 root      20   0 25108 1628 1316 S    0  0.0   0:02.52 master             
+ 1617 postfix   20   0 27336 1752 1424 S    0  0.0   0:00.40 qmgr               
+ 1648 redis     20   0 10676 1392  528 S    0  0.0   2:39.66 redis-server       
+ 1684 root      20   0  156m  65m 3384 S    0  0.8  17:11.32 puppet             
+ 1763 root      20   0 14504  948  792 S    0  0.0   0:00.00 getty              
+ 2062 ntp       20   0 37780 2176 1552 S    0  0.0   0:17.39 ntpd               
+ 2076 root      20   0 2042m 3876 2720 S    0  0.0   0:05.67 console-kit-dae    
+ 2143 root      20   0  182m 3184 2568 S    0  0.0   0:01.50 polkitd            
+ 3087 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfsalloc           
+ 3089 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs_mru_cache      
+ 3091 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfslogd            
+ 7326 root      20   0  768m 3108 2224 S    0  0.0   0:00.29 lttng-sessiond     
+ 8053 root      20   0 2292m 1.8g 118m S    0 22.7  47:28.45 ceph-mds           
+ 9721 root      20   0     0    0    0 S    0  0.0   0:08.34 kworker/3:2        
+11848 root      20   0     0    0    0 S    0  0.0   0:00.01 xfsbufd/sdb1       
+11849 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdb1      
+11850 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdb1      
+11851 root      20   0     0    0    0 S    0  0.0   1:58.72 xfsaild/sdb1       
+11854 root      20   0     0    0    0 S    0  0.0   0:00.22 xfsbufd/sdc1       
+11855 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdc1      
+11856 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdc1      
+11857 root      20   0     0    0    0 S    0  0.0   1:56.47 xfsaild/sdc1       
+11860 root      20   0     0    0    0 S    0  0.0   0:00.01 xfsbufd/sdd1       
+11861 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdd1      
+11862 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdd1      
+11863 root      20   0     0    0    0 S    0  0.0   2:00.51 xfsaild/sdd1       
+11995 root      20   0     0    0    0 S    0  0.0   0:02.67 kworker/1:0        
+12543 root      20   0 22096 1396  284 S    0  0.0   0:00.00 udevd              
+12544 root      20   0 21920 1032  100 S    0  0.0   0:00.00 udevd              
+12555 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsIO              
+12556 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12557 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12558 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12559 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12560 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsSync            
+14086 root      20   0  945m 111m 111m S    0  1.4   0:06.54 lttng-consumerd    
+23572 root      20   0     0    0    0 S    0  0.0   0:03.82 kworker/0:0        
+23923 root      20   0     0    0    0 S    0  0.0   0:00.03 kworker/2:1        
+26323 postfix   20   0 27172 1488 1208 S    0  0.0   0:00.00 pickup             
+29004 root      20   0     0    0    0 S    0  0.0   0:00.01 kworker/2:0        
+29144 root      20   0 81956 3824 2976 S    0  0.0   0:00.01 sshd               
+29300 msevilla  20   0 81956 1568  720 S    0  0.0   0:00.00 sshd               
+29301 msevilla  20   0 11060 1484 1244 S    0  0.0   0:00.29 dump-daemon.sh     
+29380 root      20   0 60424  19m 1244 S    0  0.2   0:02.95 collectl           
+29394 root      20   0     0    0    0 S    0  0.0   0:00.04 flush-8:32         
+32648 msevilla  20   0  5880  608  516 S    0  0.0   0:00.00 sleep              
+
+
+top - 13:24:18 up 9 days,  4:56,  0 users,  load average: 0.06, 0.59, 0.66
+Tasks: 141 total,   1 running, 140 sleeping,   0 stopped,   0 zombie
+Cpu0  :  2.0%us,  0.0%sy,  0.0%ni, 98.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu1  :  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu2  :  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu3  :  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8177412k total,  4877552k used,  3299860k free,   296596k buffers
+Swap:  8386556k total,        0k used,  8386556k free,  2429084k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND            
+32647 msevilla  20   0 17340 1280  940 R    2  0.0   0:00.02 top                
+    1 root      20   0 24456 2380 1272 S    0  0.0   0:04.72 init               
+    2 root      20   0     0    0    0 S    0  0.0   0:00.00 kthreadd           
+    3 root      20   0     0    0    0 S    0  0.0   0:28.45 ksoftirqd/0        
+    5 root      20   0     0    0    0 S    0  0.0   0:07.38 kworker/u:0        
+    6 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/0        
+    7 root      RT   0     0    0    0 S    0  0.0   0:02.78 watchdog/0         
+    8 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/1        
+   10 root      20   0     0    0    0 S    0  0.0   0:24.53 ksoftirqd/1        
+   12 root      RT   0     0    0    0 S    0  0.0   0:02.26 watchdog/1         
+   13 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/2        
+   15 root      20   0     0    0    0 S    0  0.0   0:22.40 ksoftirqd/2        
+   16 root      RT   0     0    0    0 S    0  0.0   0:02.29 watchdog/2         
+   17 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/3        
+   18 root      20   0     0    0    0 S    0  0.0   0:01.30 kworker/3:0        
+   19 root      20   0     0    0    0 S    0  0.0   0:25.25 ksoftirqd/3        
+   20 root      RT   0     0    0    0 S    0  0.0   0:02.24 watchdog/3         
+   21 root       0 -20     0    0    0 S    0  0.0   0:00.00 cpuset             
+   22 root       0 -20     0    0    0 S    0  0.0   0:00.00 khelper            
+   23 root      20   0     0    0    0 S    0  0.0   0:00.00 kdevtmpfs          
+   24 root       0 -20     0    0    0 S    0  0.0   0:00.00 netns              
+   25 root      20   0     0    0    0 S    0  0.0   0:01.64 sync_supers        
+   26 root      20   0     0    0    0 S    0  0.0   0:00.05 bdi-default        
+   27 root       0 -20     0    0    0 S    0  0.0   0:00.00 kintegrityd        
+   28 root       0 -20     0    0    0 S    0  0.0   0:00.00 kblockd            
+   29 root       0 -20     0    0    0 S    0  0.0   0:00.00 ata_sff            
+   30 root      20   0     0    0    0 S    0  0.0   0:00.00 khubd              
+   31 root       0 -20     0    0    0 S    0  0.0   0:00.00 md                 
+   62 root      20   0     0    0    0 S    0  0.0   0:00.28 khungtaskd         
+   63 root      20   0     0    0    0 S    0  0.0   0:00.00 kswapd0            
+   64 root      20   0     0    0    0 S    0  0.0   0:00.00 kswapd1            
+   65 root      25   5     0    0    0 S    0  0.0   0:00.00 ksmd               
+   66 root      39  19     0    0    0 S    0  0.0   0:00.00 khugepaged         
+   67 root      20   0     0    0    0 S    0  0.0   0:00.00 fsnotify_mark      
+   68 root      20   0     0    0    0 S    0  0.0   0:00.00 ecryptfs-kthrea    
+   69 root       0 -20     0    0    0 S    0  0.0   0:00.00 crypto             
+   77 root       0 -20     0    0    0 S    0  0.0   0:00.00 kthrotld           
+  113 root       0 -20     0    0    0 S    0  0.0   0:00.00 deferwq            
+  114 root       0 -20     0    0    0 S    0  0.0   0:00.00 devfreq_wq         
+  218 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_0          
+  225 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_1          
+  232 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_2          
+  234 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_3          
+  240 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_4          
+  245 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_5          
+  248 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/u:7        
+  312 root      20   0     0    0    0 S    0  0.0   0:10.01 jbd2/sda1-8        
+  313 root       0 -20     0    0    0 S    0  0.0   0:00.00 ext4-dio-unwrit    
+  320 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_6          
+  321 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_7          
+  438 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  439 root      20   0 19200 1028  740 S    0  0.0   0:00.77 rpcbind            
+  449 statd     20   0 21504 1332  876 S    0  0.0   0:00.00 rpc.statd          
+  455 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  456 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  468 root      20   0 17908 1168  468 S    0  0.0   0:00.13 upstart-udev-br    
+  483 root      20   0     0    0    0 S    0  0.0   0:01.71 kworker/1:1        
+  486 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  488 root      20   0 22100 1880  772 S    0  0.0   0:00.10 udevd              
+  492 root       0 -20     0    0    0 S    0  0.0   0:00.00 rpciod             
+  493 root       0 -20     0    0    0 S    0  0.0   0:00.00 nfsiod             
+  518 statd     20   0 21504 1336  876 S    0  0.0   0:00.00 rpc.statd          
+  519 statd     20   0 25744 1472  984 S    0  0.0   0:00.00 rpc.statd          
+  523 root      20   0 25540  680  436 S    0  0.0   0:00.00 rpc.idmapd         
+  525 messageb  20   0 23940 1116  780 S    0  0.0   0:01.17 dbus-daemon        
+  707 root      20   0     0    0    0 S    0  0.0   0:04.32 flush-8:0          
+  708 root       0 -20     0    0    0 S    0  0.0   0:00.00 mthca_catas        
+  710 root       0 -20     0    0    0 S    0  0.0   0:00.00 edac-poller        
+  750 root       0 -20     0    0    0 S    0  0.0   0:00.00 kpsmoused          
+  764 syslog    20   0  244m 5000 1132 S    0  0.1   1:19.81 rsyslogd           
+  806 root      20   0 15188  392  196 S    0  0.0   0:00.01 upstart-socket-    
+  808 root       0 -20     0    0    0 S    0  0.0   0:00.00 ib_mad1            
+  979 root      20   0  7264  980  480 S    0  0.0   0:00.62 dhclient3          
+ 1035 root      20   0  7264  984  480 S    0  0.0   0:00.58 dhclient3          
+ 1082 root      20   0     0    0    0 S    0  0.0   0:00.00 lockd              
+ 1090 root      20   0 50036 2880 2272 S    0  0.0   0:00.26 sshd               
+ 1321 root      20   0 14504  956  792 S    0  0.0   0:00.00 getty              
+ 1329 root      20   0 14504  948  792 S    0  0.0   0:00.00 getty              
+ 1345 root      20   0 14504  960  792 S    0  0.0   0:00.00 getty              
+ 1346 root      20   0 14504  956  792 S    0  0.0   0:00.00 getty              
+ 1348 root      20   0 14504  952  792 S    0  0.0   0:00.00 getty              
+ 1376 root      20   0  4328  688  560 S    0  0.0   0:00.00 acpid              
+ 1380 root      20   0 19112  996  760 S    0  0.0   0:08.83 cron               
+ 1381 daemon    20   0 16908  380  220 S    0  0.0   0:00.00 atd                
+ 1398 root      20   0 15980  680  504 S    0  0.0   1:25.40 irqbalance         
+ 1415 whoopsie  20   0  183m 4068 2864 S    0  0.0   0:00.02 whoopsie           
+ 1416 root      20   0     0    0    0 S    0  0.0   0:00.11 kworker/2:2        
+ 1472 root      20   0     0    0    0 S    0  0.0   0:01.26 kworker/0:2        
+ 1490 root      20   0 34968 1248  964 S    0  0.0   0:18.74 ha_logd            
+ 1493 root      20   0 34968  724  448 S    0  0.0   0:18.23 ha_logd            
+ 1503 root      20   0 64144 4028 1224 S    0  0.0   0:16.60 php5-fpm           
+ 1504 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1505 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1506 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1507 www-data  20   0 64144 3520  712 S    0  0.0   0:00.00 php5-fpm           
+ 1602 root      20   0 25108 1628 1316 S    0  0.0   0:02.52 master             
+ 1617 postfix   20   0 27336 1752 1424 S    0  0.0   0:00.40 qmgr               
+ 1648 redis     20   0 10676 1392  528 S    0  0.0   2:39.66 redis-server       
+ 1684 root      20   0  156m  65m 3384 S    0  0.8  17:11.32 puppet             
+ 1763 root      20   0 14504  948  792 S    0  0.0   0:00.00 getty              
+ 2062 ntp       20   0 37780 2176 1552 S    0  0.0   0:17.39 ntpd               
+ 2076 root      20   0 2042m 3876 2720 S    0  0.0   0:05.67 console-kit-dae    
+ 2143 root      20   0  182m 3184 2568 S    0  0.0   0:01.50 polkitd            
+ 3087 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfsalloc           
+ 3089 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs_mru_cache      
+ 3091 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfslogd            
+ 7326 root      20   0  768m 3108 2224 S    0  0.0   0:00.29 lttng-sessiond     
+ 8053 root      20   0 2292m 1.8g 118m S    0 22.7  47:28.45 ceph-mds           
+ 9721 root      20   0     0    0    0 S    0  0.0   0:08.34 kworker/3:2        
+11848 root      20   0     0    0    0 S    0  0.0   0:00.01 xfsbufd/sdb1       
+11849 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdb1      
+11850 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdb1      
+11851 root      20   0     0    0    0 S    0  0.0   1:58.72 xfsaild/sdb1       
+11854 root      20   0     0    0    0 S    0  0.0   0:00.22 xfsbufd/sdc1       
+11855 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdc1      
+11856 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdc1      
+11857 root      20   0     0    0    0 S    0  0.0   1:56.47 xfsaild/sdc1       
+11860 root      20   0     0    0    0 S    0  0.0   0:00.01 xfsbufd/sdd1       
+11861 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-data/sdd1      
+11862 root       0 -20     0    0    0 S    0  0.0   0:00.00 xfs-conv/sdd1      
+11863 root      20   0     0    0    0 S    0  0.0   2:00.51 xfsaild/sdd1       
+11995 root      20   0     0    0    0 S    0  0.0   0:02.67 kworker/1:0        
+12543 root      20   0 22096 1396  284 S    0  0.0   0:00.00 udevd              
+12544 root      20   0 21920 1032  100 S    0  0.0   0:00.00 udevd              
+12555 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsIO              
+12556 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12557 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12558 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12559 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsCommit          
+12560 root      20   0     0    0    0 S    0  0.0   0:00.00 jfsSync            
+14086 root      20   0  945m 111m 111m S    0  1.4   0:06.54 lttng-consumerd    
+23572 root      20   0     0    0    0 S    0  0.0   0:03.82 kworker/0:0        
+23923 root      20   0     0    0    0 S    0  0.0   0:00.03 kworker/2:1        
+26323 postfix   20   0 27172 1488 1208 S    0  0.0   0:00.00 pickup             
+29004 root      20   0     0    0    0 S    0  0.0   0:00.01 kworker/2:0        
+29144 root      20   0 81956 3824 2976 S    0  0.0   0:00.01 sshd               
+29300 msevilla  20   0 81956 1568  720 S    0  0.0   0:00.00 sshd               
+29301 msevilla  20   0 11060 1484 1244 S    0  0.0   0:00.29 dump-daemon.sh     
+29380 root      20   0 60424  19m 1244 S    0  0.2   0:02.95 collectl           
+29394 root      20   0     0    0    0 S    0  0.0   0:00.04 flush-8:32         
+32648 msevilla  20   0  5880  608  516 S    0  0.0   0:00.00 sleep              
+

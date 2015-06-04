@@ -1,0 +1,6 @@
+20150604 13:03:48 I-V3.6.0-1 Beginning execution on issdm-10...
+20150604 13:03:48 I-First log rollover will be: 20150605 00:00:00
+20150604 13:03:48 E-Found 1 HCA(s) but none had any active ports
+20150604 13:03:48 W--sx disabled because couldn't find perfquery!
+20150604 13:03:48 W--sl disabled because this system does not have lustre modules installed
+20150604 13:03:48 I-Waiting 11383928 usecs for time alignment

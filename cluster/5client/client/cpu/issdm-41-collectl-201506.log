@@ -1,0 +1,5 @@
+20150604 13:03:49 I-V3.6.0-1 Beginning execution on issdm-41...
+20150604 13:03:49 I-First log rollover will be: 20150605 00:00:00
+20150604 13:03:49 W--sx disabled because no interconnect hardware/drivers found
+20150604 13:03:49 W--sl disabled because this system does not have lustre modules installed
+20150604 13:03:49 I-Waiting 10291121 usecs for time alignment
