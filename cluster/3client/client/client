@@ -1,0 +1,5 @@
+2015-06-04 12:29:34.727316 7fddb38cd800  0 ceph version 9.0.0-1253-g28a4798 (28a47981c2533db16cd7fcfe161daeb6582368af), process ceph-fuse, pid 2364
+2015-06-04 12:29:34.730123 7fddb38cd800 -1 ceph-fuse[init, newargv = 0x3186280 newargc=11
+2364]: starting ceph client
+ceph-fuse[2364]: starting fuse
+ceph-fuse[2364]: fuse finished with error 0 and tester_r 0

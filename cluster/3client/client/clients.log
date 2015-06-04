@@ -1,0 +1,32 @@
+--------------------------------------------------------------------------
+[[13164,1],0]: A high-performance Open MPI point-to-point messaging module
+was unable to find any relevant network interfaces:
+
+Module: OpenFabrics (openib)
+  Host: issdm-5
+
+Another transport will be used instead, although this may result in
+lower performance.
+--------------------------------------------------------------------------
+-- started at 06/04/2015 12:29:40 --
+
+mdtest-1.9.1 was launched with 3 total task(s) on 3 node(s)
+Command line used: /user/msevilla/programs/mdtest/mdtest -n 100000 -F -C -d /mnt/cephfs/shared
+Path: /mnt/cephfs
+FS: 4.1 TiB   Used FS: 0.0%   Inodes: 0.0 Mi   Used Inodes: 105.0%
+
+3 tasks, 300000 files
+[issdm-3:28244] 1 more process has sent help message help-mpi-btl-base.txt / btl:no-nics
+[issdm-3:28244] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+
+SUMMARY: (of 1 iterations)
+   Operation                      Max            Min           Mean        Std Dev
+   ---------                      ---            ---           ----        -------
+   File creation     :        452.877        452.877        452.877          0.000
+   File stat         :          0.000          0.000          0.000          0.000
+   File read         :          0.000          0.000          0.000          0.000
+   File removal      :          0.000          0.000          0.000          0.000
+   Tree creation     :        687.365        687.365        687.365          0.000
+   Tree removal      :          0.000          0.000          0.000          0.000
+
+-- finished at 06/04/2015 12:40:43 --

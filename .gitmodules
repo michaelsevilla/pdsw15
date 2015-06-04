@@ -7,3 +7,9 @@
 [submodule "cluster/1client/src/mds"]
 	path = cluster/1client/src/mds
 	url = https://github.com/michaelsevilla/mds.git
+[submodule "cluster/3client/src/mds"]
+	path = cluster/3client/src/mds
+	url = https://github.com/michaelsevilla/mds.git
+[submodule "cluster/3client/src/ceph"]
+	path = cluster/3client/src/ceph
+	url = https://github.com/michaelsevilla/ceph.git
