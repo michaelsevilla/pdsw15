@@ -19,3 +19,15 @@
 [submodule "cluster/5client/src/ceph"]
 	path = cluster/5client/src/ceph
 	url = https://github.com/michaelsevilla/ceph.git
+[submodule "cluster/1client-runs/src/mds"]
+	path = cluster/1client-runs/src/mds
+	url = https://github.com/michaelsevilla/mds.git
+[submodule "cluster/1client-runs/src/ceph"]
+	path = cluster/1client-runs/src/ceph
+	url = https://github.com/michaelsevilla/ceph.git
+[submodule "cluster/2client-runs/src/mds"]
+	path = cluster/2client-runs/src/mds
+	url = https://github.com/michaelsevilla/mds.git
+[submodule "cluster/2client-runs/src/ceph"]
+	path = cluster/2client-runs/src/ceph
+	url = https://github.com/michaelsevilla/ceph.git
