@@ -1,0 +1,18 @@
+We thank the reviewers for their time and thoughtful suggestions.
+
+Reviewer 1: "Nevertheless, the paper is good and will be of interest to the community."
+
+1) How linked to CephFS is this system?
+
+2) Can this technique be more sophisticated?
+
+3) Why didn't we use different kinds of loads (instead of just creates in separate directories)?
+
+Reviewer 2: "The paper's well written."
+
+1) Is compiling Linux and creating a bunch of files in a directory representative of supercomputing loads? Why isn't there a suit of file-intensive scientific laods?
+
+
+Reviewer 3
+
+Reviewer 4
