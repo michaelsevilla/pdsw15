@@ -1,2 +1,0 @@
-2015-06-04 10:49:53.004323 7f9b44df2840  0 ceph version 9.0.0-1253-g28a4798 (28a47981c2533db16cd7fcfe161daeb6582368af), process ceph-fuse, pid 4470
-2015-06-04 10:49:53.008000 7f9b44df2840 -1 asok(0x411aa40) AdminSocketConfigObs::init: failed: AdminSocket::bind_and_listen: failed to bind the UNIX domain socket to '/var/run/ceph/ceph-client.admin.asok': (13) Permission denied

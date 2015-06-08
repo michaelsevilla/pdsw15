@@ -1,7 +1,0 @@
-pool name                 KB      objects       clones     degraded      unfound           rd        rd KB           wr        wr KB
-cephfs_data                0            0            0            0           0            0            0            0            0
-cephfs_metadata         1803           20            0            0           0            0            0          405         2154
-rbd                        0            0            0            0           0            0            0            0            0
-  total used          768396           20
-  total avail     4392638452
-  total space     4393406848

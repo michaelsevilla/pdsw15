@@ -1,9 +1,0 @@
-2015-06-04 11:43:29.445554 7fa07885b800  0 ceph version 9.0.0-1253-g28a4798 (28a47981c2533db16cd7fcfe161daeb6582368af), process ceph-fuse, pid 32372
-2015-06-04 11:43:29.448275 7fa07885b800 -1 asok(0x2d0ea80) AdminSocketConfigObs::init: failed: AdminSocket::bind_and_listen: failed to bind the UNIX doceph-fuse[31887]: fuse finished with error 0 and tester_r 0
-File exists
-2015-06-04 11:43:29.448613 7fa07885b800 -1 init, newargv = 0x2d31780 newargc=11
-ceph-fuse[32372]: starting ceph client
-mount: according to mtab, ceph-fuse is already mounted on /mnt/cephfs
-
-ceph-fuse[32372]: fuse failed to start2015-06-04 11:43:29.491968 7fa07885b800 -1 fuse_mount(mountpoint=/mnt/cephfs) failed.
-
