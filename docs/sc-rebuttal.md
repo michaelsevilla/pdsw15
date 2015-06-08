@@ -110,7 +110,7 @@ Typos:
 
 
 
-Reviewer 5: "This is an interesting paper of good quality; Regardless, here are some suggestions for small improvemtns:"
+## Reviewer 5: "This is an interesting paper of good quality; Regardless, here are some suggestions for small improvemtns:"
 - Section 3.2: the workload will also affect global state view (unsolved problem)
 Presentation
 - Vertical gridlines in Figure 4/7
