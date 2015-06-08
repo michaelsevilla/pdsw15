@@ -1,12 +1,17 @@
+
 We thank the reviewers for their time and thoughtful suggestions.
 
-# Reviewer 1: "Nevertheless, the paper is good and will be of interest to the community."
+# General questions
 
-> 1) How linked to CephFS is this system?
 
-2) Can this technique be more sophisticated?
 
-3) Why didn't we use different kinds of loads (instead of just creates in separate directories)?
+## Reviewer 1: 
+
+> 1. How linked to CephFS is this system?
+> 2. Can this technique be more sophisticated?
+> 3. Why didn`t  we use different kinds of loads (instead of just creates in separate directories)?
+"Nevertheless, the paper is good and will be of interest to the community."
+
 
 Reviewer 2: "The paper's well written." 
 Weak accept
