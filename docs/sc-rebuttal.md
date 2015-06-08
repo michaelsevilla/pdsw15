@@ -5,6 +5,7 @@ We thank the reviewers for their time and thoughtful suggestions.
 
 > Why do we report a limited number of workloads?
 > - reviewer 1, 2
+
 One of our contributions is a general framework for supporting different balancing scripts, so our results focus on showing how the balancers change the behavior of the system instead of raw performance. We present profiles of the instantaneous throughput for a small number of experiments to show how Mantle alters the system’s behavior. Since our contribution is showing the benefits of locality and the balancer API itself, we felt that the space we had was better utilized showing how the balancer can achieve multiple balancers on the same storage system.
 
 We choose workloads that both stress the system and are representative of supercomputing; these are in no way complete or comprehensive. Checkpoint/restart, which is characterized by many, concurrent creates, is a common paradigm and has been exclusively studied in the most state-of-the-art systems (e.g., GIGA+). Compiling the Linux kernel is not as common in supercomputing, but we choose it because talks with talks with the Ceph developers, and the mailing list, indicate that the community is planning to use CephFS as a backup repository, a shared file system, a file server, and/or a compute backend. We choose it because it exhibits a wider range of metadata requests types and frequencies.
@@ -12,10 +13,12 @@ We choose workloads that both stress the system and are representative of superc
 
 > How specific to CephFS are the results?
 > - reviewer 1
+
 The raw performance number are specific to CephFS, but the flexibility of Mantle generalizes the results in two ways: (1) it lets us test a wide range of balancing policies on the same storage system, and (2) it shows that our techinque, of using hooks to separate policy from mechanism, could work for other systems.
 
 > How does Mantle scale?
 > - reviewer 3
+
 We do not present scalability results in the paper, but the system will scale with the number of servers but the balancer gets more finicky the more MDSs that get added (this statement is anecdotal). While we agree that scalability is important, we stress that our conclusions stress efficiency: is it better to immediately spread load aggressively or to understand the capacity of your MDS to split load at the right time under the right conditions. The latter argument is more appealing but has more complexity and this paper tries to demonstrate the benefits of such an approach. While we do not come up with an architecture that works well for many types of workloads and better than the state of the art (GIGA+), we do present a framework that looks at these factors from a different angle and gives rise to a system that can explore these different strategies in a holistic way.
 
 
@@ -36,9 +39,11 @@ above
 ## Reviewer 2: 
 
 > 1. Is compiling Linux and creating a bunch of files in a directory representative of supercomputing loads? Why isn`t there a suit of file-intensive scientific laods?
+
 above
 
 > 2. What are the contributions? If the contribution is the effect that policies have on behavior, then there needs to be a more comprehensive set of workloads.
+
 Although we strive to quantify the effect that policies have on behavior, in this paper, we are only able to show that policies have a discernable affect on performance. Rather than presenting a suite of workloads that must be introduced, characterized, and implemented, we present a narrow set of workloads that show . Of course, running a suite of workloads over Mantle is future work. The novelty of our system is that it can provide a gneeral framework for expressing and testing a range of balancing techinque, while minimizing the overhead of porting the balancer to different systems
 
 ### Other comments: 
@@ -51,12 +56,14 @@ Although we strive to quantify the effect that policies have on behavior, in thi
 ## Reviewer 3:
 
 > 1. Can I trust the metrics that Mantle uses, especially, since the effects on system as a whole has such had variability?
+
 Finding the metrics that reflect the system`s state is one of the main use cases for Mantle! Mantle pulls out ALL the metrics that could be important (i.e. ones that we think, based on empirical evidence, are important) so that the adminsistrator can freely explore them. Unfortunately, if we need a metric that Mantle doesn`t expose, we nee d to open up CephFS and add it - but this overhead isn`t any worse than what we`d have to do with plain old CephFS. For example, one of the metrics that we started with was a running average of the CPU utilization, but we deteremined that this is insufficient for flash crowds, so we had to modify Mantle to expose the instantaneous CPU utilization. 
 
 2) How representative is our small test system? Does variability increase with more clients?
 above
 
 3) What empirical observations/tests helped us arrive at the heuristics in the paper?
+
 The heuristics we explore are from related work. Spill evenly is from GIGA+, Spill and Fill is a variation of LARD (we actually didn`t see this paper until recently, but it will cited in the final version), and the Adaptable balancer is the original CephFS balancer policy. We find thresholds for the spill and fill technique using the latency vs. throughput graph in Fig. 5, but for the most part, these heuristics are just starting points for showing the power of Mantle and we are not ready to make grandiose statements about which is best... yet.
 
 ### Other comments
