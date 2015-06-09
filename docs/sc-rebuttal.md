@@ -1,6 +1,7 @@
 We thank the reviewers for their time and thoughtful suggestions.
 
 # General questions
+- biggest issues: scalability, locality, contributions
 
 ### 1. Why do we report a limited number of workloads and are these workloads representative of many HPC applications?
 
@@ -10,7 +11,9 @@ The workloads we choose both stress the system and are representative of superco
 
 ### 2. How specific to CephFS are the results?
 
-The raw performance number are specific to CephFS, but Mantle generalizes the results in two ways: (1) it lets us test a wide range of balancing policies on the same storage system, and (2) it shows that our techinque, of using hooks to separate policy from mechanism, could work for other systems.
+The raw performance number are specific to CephFS, but Mantle generalizes the stratgies of many systems by supporting the exploration of a wide range of balancing policies on the same storage system. The biggest flaw in our paper is not properly contextualizing how Mantle fits into the related work. We are not arguing that Mantle is more scalable or better performing than GIGA+. Instead, we use Mantle to highlight how locality can improve performance in a distributed file systems. 
+
+Future revisions of the paper will expand on Section 2.4 and Fig. 3, as the success of dynamic subtree partitioning is contingent on whether these factors are true. We will also expand on GIGA+ in the related work, becuse it was never our intention to "dismiss" GIGA+, rather, we want to highlight its strategy in comparison to other strategies using Mantle. While it is natural to compare raw performance numbers in an apples-to-apples way, we feel (and not just because GIGA+ outperforms Mantle) that we are attacking an orthogonal issue by providing a system that we can test the strategies of the systems, rather than the systems themselves.
 
 ### 3. How does Mantle scale?
 
@@ -39,11 +42,10 @@ general question 1
 
 ### 2. What are the contributions? If the contribution is the effect that policies have on behavior, then there needs to be a more comprehensive set of workloads.
 
-Although we strive to quantify the effect that policies on performance, in this paper we only show how certain policies can improve or degrade performance. We try to stay away from characterizing different workloads and finding balancers tailored to them and instead focus on the system itself. Of course, running a suite of workloads over Mantle is future work. The novelty of our system is that it can provide a gneeral framework for expressing and testing a range of balancing techinque, while minimizing the overhead of porting the balancer to different systems
+Although we strive to quantify the effect that policies on performance, in this paper we only show how certain policies can improve or degrade performance. We try to stay away from characterizing different workloads and finding balancers tailored to them and instead focus on the system itself. Of course, running a suite of workloads over Mantle is future work. The novelty of our system is that it can provide a gneeral framework for expressing and testing a range of balancing techinque, while minimizing the overhead of porting the balancer to different systems.
 
-### Other comments: 
-- CephFS does not have hysteresis?
-- Typos
+We agree that separating policy from mechanism is not a contribution, but a technique that has been used many times before. In future revisions, we will focus on the balancing API and the framework testing different strategies as our contributions.
+
 
 ## Reviewer 3:
 
@@ -57,15 +59,12 @@ general question 3
 
 ### 3. What empirical observations/tests helped us arrive at the heuristics in the paper?
 
-The heuristics we explore are from related work. Spill evenly is from GIGA+, Spill and Fill is a variation of LARD (we actually didn't see this paper until recently, but it will cited in the final version), and the Adaptable balancer is the original CephFS balancer policy. We find thresholds for the spill and fill technique using the latency vs. throughput graph in Fig. 5, but for the most part, these heuristics are just starting points for showing the power of Mantle and we are not ready to make grandiose statements about which is best... yet.
+The heuristics we explore are from related work. Spill evenly is from GIGA+, Spill and Fill is a variation of LARD (we actually didn't see this paper until recently, but it will cited in the final version), and the Adaptable balancer is the original CephFS balancer policy. We find thresholds for the spill and fill technique using the latency vs. throughput graph in Fig. 5, but for the most part, these heuristics are just starting points for showing the power of Mantle and we are not ready to make grandiose statements about which is best... yet. The revised version of the paper will condense the background sections (2 and 3) to make room for this explanation.
 
 ### Other comments
-- presentation: Sections 2-3 are too long are background
 - Fig. 3 has terms not described in the section.
 
 ## Reviewer 4: probably Garth Gibson
-Typos:
-- objective clause 
 
 ### 1. How specific to CephFS are the results?
 
@@ -73,7 +72,7 @@ general quetion 2
 
 ### 2. Is the complexity and poor behavior arguments AGAINST the use of dynamic subtree partitioning? 
 
-Yes, but Mantle's flexibility is appealing and warrants exploration. In future versions of the paper, we will rename Section 3 "Dynamic Subtree Paritioning Challenges".
+Yes, the paper spends too much time framing the complexity of dynamic subtree partitioning, but the takeaway should have been that  Mantle's flexibility is appealing and warrants exploration. In future versions of the paper, we will compress Section 3 and rename it "Dynamic Subtree Paritioning Challenges". 
 
 ### 3. Why did you choose creates, one of the worst workloads?
 
@@ -85,6 +84,7 @@ The flexibility to explore the benefits of locality (see 5) vs. hashing.
 
 ### 5. What are the benefits of locality?
 
+The success of Mantle's dynamic subtree partitioning is contingent 
 - reducing requests: figure 3
 - lowering communication: ??
 - memory pressure: caching inodes
@@ -124,6 +124,8 @@ You are correct, this will make our story stronger. We will add error bars in fu
 general question 2 (also future work)
 
 ### 13. Figure 7: difference between fill and spill and spill evenly
+
+TODO:
 
 ## Reviewer 5: "This is an interesting paper of good quality; Regardless, here are some suggestions for small improvemtns:"
 - Section 3.2: the workload will also affect global state view (unsolved problem)
