@@ -6,10 +6,9 @@ We thank the reviewers for their time and thoughtful suggestions.
 > Why do we report a limited number of workloads?
 > - reviewer 1, 2
 
-One of our contributions is a general framework for supporting different balancing scripts, so our results focus on showing how the balancers change the behavior of the system instead of raw performance. We present profiles of the instantaneous throughput for a small number of experiments to show how Mantle alters the system’s behavior. Since our contribution is showing the benefits of locality and the balancer API itself, we felt that the space we had was better utilized showing how the balancer can achieve multiple balancers on the same storage system.
+We present profiles of the instantaneous throughput for a small number of experiments to show how different balancer policy affect the system’s behavior. Since our contribution is a general framework for testing and specifying different balancing scripts, we felt that the space we had was better utilized showing how the balancer can achieve multiple balancers on the same storage system, instead of drawing broad conclusion about which balancers are best for a given workload - this is future work.
 
-We choose workloads that both stress the system and are representative of supercomputing; these are in no way complete or comprehensive. Checkpoint/restart, which is characterized by many, concurrent creates, is a common paradigm and has been exclusively studied in the most state-of-the-art systems (e.g., GIGA+). Compiling the Linux kernel is not as common in supercomputing, but we choose it because talks with talks with the Ceph developers, and the mailing list, indicate that the community is planning to use CephFS as a backup repository, a shared file system, a file server, and/or a compute backend. We choose it because it exhibits a wider range of metadata requests types and frequencies.
-
+The workloads we choose both stress the system and are representative of supercomputing; these are in no way complete or comprehensive. Checkpoint/restart, which is characterized by many, concurrent creates, is a common HPC paradigm and has been exclusively studied in the most state-of-the-art systems (e.g., GIGA+). Compiling the Linux kernel is not as common, but we choose it because it exhibits a wider range of metadata requests types/frequencies and because users plan to use CephFS as a backup repository, a shared file system, and file server, and/or a compute backend (according to personal communication with Ceph developers and the mailing list).
 
 > How specific to CephFS are the results?
 > - reviewer 1
@@ -19,22 +18,21 @@ The raw performance number are specific to CephFS, but the flexibility of Mantle
 > How does Mantle scale?
 > - reviewer 3
 
-We do not present scalability results in the paper, but the system will scale with the number of servers but the balancer gets more finicky the more MDSs that get added (this statement is anecdotal). While we agree that scalability is important, we stress that our conclusions stress efficiency: is it better to immediately spread load aggressively or to understand the capacity of your MDS to split load at the right time under the right conditions. The latter argument is more appealing but has more complexity and this paper tries to demonstrate the benefits of such an approach. While we do not come up with an architecture that works well for many types of workloads and better than the state of the art (GIGA+), we do present a framework that looks at these factors from a different angle and gives rise to a system that can explore these different strategies in a holistic way.
-
+The system will scale with the number of servers but the balancer gets more finicky the more MDSs that get added (this statement is anecdotal). While we agree that scalability is important, we stress that our conclusions stress efficiency: for a given workload, is it better to immediately spread load aggressively or to understand the capacity of your MDS to split load at the right time under the right conditions. The latter argument is more appealing but has more complexity and this paper tries to demonstrate the benefits of such an approach. While we do not come up with an architecture that is better than the state-of-the-art (e.g., GIGA+) or that works well for many workloads, we do present a framework that looks at these factors from a different angle and gives rise to a system that can explore these different strategies in a holistic way.
 
 ## Reviewer 1: 
 
 > 1. How linked to CephFS is this system?
+
 above
 
 > 2. Can this technique be more sophisticated?
+
 The actual technique, of separating the metadata policy from its mechanisms, is left intentionally simple, but lets the administrator layer more sophisticated balancers, with different metrics, statistical modeling, or machine learning, on top is the intent.
 
 > 3. Why didn`t  we use different kinds of loads (instead of just creates in separate directories)?
-above
 
-### Positives
-"Nevertheless, the paper is good and will be of interest to the community."
+above
 
 ## Reviewer 2: 
 
@@ -44,14 +42,11 @@ above
 
 > 2. What are the contributions? If the contribution is the effect that policies have on behavior, then there needs to be a more comprehensive set of workloads.
 
-Although we strive to quantify the effect that policies have on behavior, in this paper, we are only able to show that policies have a discernable affect on performance. Rather than presenting a suite of workloads that must be introduced, characterized, and implemented, we present a narrow set of workloads that show . Of course, running a suite of workloads over Mantle is future work. The novelty of our system is that it can provide a gneeral framework for expressing and testing a range of balancing techinque, while minimizing the overhead of porting the balancer to different systems
+Although we strive to quantify the effect that policies on performance, in this paper we only show how certain policies can improve or degrade performance. We try to stay away from characterizing different workloads and finding balancers tailored to them and instead focus on the system itself. Of course, running a suite of workloads over Mantle is future work. The novelty of our system is that it can provide a gneeral framework for expressing and testing a range of balancing techinque, while minimizing the overhead of porting the balancer to different systems
 
 ### Other comments: 
 - CephFS doesn`t have hysteresis?
 - Typos
-
-### Positives
-- "The paper's well written... Weak accept" 
 
 ## Reviewer 3:
 
@@ -88,27 +83,23 @@ Typos:
 6) What is the basic client-server metadata protocols? 
 - e.g., why does a single client run 18% slower on 2 MDSs
 
-
-3) How do you know that the load is saturating the system? How does the system scale?
+7) How do you know that the load is saturating the system? How does the system scale?
 - is there problems with many MDSs and cold files (collective memory of MDSs)?
 - the scalability story is not strong
-    - we show that you don't need x MDSs to do a job that doesn't require it
+    - we show that you don`t need x MDSs to do a job that doesn`t require it
 - many many more questions
 
-7) Why do we compare against running a single client running a single make?
+8) Why do we compare against running a single client running a single make?
 
-4) What are the details of the metadata protocols and is there a cost model of MDS operations?
+9) What are the details of the metadata protocols and is there a cost model of MDS operations?
 
-8) How does the MDS forward work? Why is there so much overhead?
+10) How does the MDS forward work? Why is there so much overhead?
 
-9) Why does reproducibility prevent us from using error bards?
+11) Why does reproducibility prevent us from using error bards?
 
-10) What about control (such as, I don't want that load) or feedback loop?
+12) What about control (such as, I don`t want that load) or feedback loop?
 
-11) Figure 7: difference between fill and spill and spill evenly
-
-
-
+13) Figure 7: difference between fill and spill and spill evenly
 
 ## Reviewer 5: "This is an interesting paper of good quality; Regardless, here are some suggestions for small improvemtns:"
 - Section 3.2: the workload will also affect global state view (unsolved problem)
@@ -132,6 +123,6 @@ Presentation
 
 8) How does Mantle handle oscillation/thrashing?
 
-9) Why can't the balancer decide how much load to send?
+9) Why can`t the balancer decide how much load to send?
 - it can, it just chooses... poorly
 
