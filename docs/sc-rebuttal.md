@@ -1,65 +1,62 @@
-
 We thank the reviewers for their time and thoughtful suggestions.
 
 # General questions
 
-> Why do we report a limited number of workloads?
-> - reviewer 1, 2
+> 1. Why do we report a limited number of workloads and are these workloads representative of many HPC applications?
 
 We present profiles of the instantaneous throughput for a small number of experiments to show how different balancer policy affect the system’s behavior. Since our contribution is a general framework for testing and specifying different balancing scripts, we felt that the space we had was better utilized showing how the balancer can achieve multiple balancers on the same storage system, instead of drawing broad conclusion about which balancers are best for a given workload - this is future work.
 
-The workloads we choose both stress the system and are representative of supercomputing; these are in no way complete or comprehensive. Checkpoint/restart, which is characterized by many, concurrent creates, is a common HPC paradigm and has been exclusively studied in the most state-of-the-art systems (e.g., GIGA+). Compiling the Linux kernel is not as common, but we choose it because it exhibits a wider range of metadata requests types/frequencies and because users plan to use CephFS as a backup repository, a shared file system, and file server, and/or a compute backend (according to personal communication with Ceph developers and the mailing list).
+The workloads we choose both stress the system and are representative of supercomputing; these are in no way complete or comprehensive. Checkpoint/restart, which is characterized by many, concurrent creates, is a common HPC paradigm. We use it as a benchmark, even though it is notoriosuly terrible for metadata services (as reviewer 4 notes)for 3 reasons: (1) it does a good job of stressing the system, (2) it has been exclusively studied in the most state-of-the-art systems (e.g., GIGA+), and (3) it is a very real problem (we will shore up our related work with more references to demonstrate this point). Compiling the Linux kernel is not as common, but we choose it because it exhibits a wider range of metadata requests types/frequencies and because users plan to use CephFS as a backup repository, a shared file system, and file server, and/or a compute backend (according to personal communication with Ceph developers and the mailing list).
 
-> How specific to CephFS are the results?
-> - reviewer 1
+> 2. How specific to CephFS are the results?
 
-The raw performance number are specific to CephFS, but the flexibility of Mantle generalizes the results in two ways: (1) it lets us test a wide range of balancing policies on the same storage system, and (2) it shows that our techinque, of using hooks to separate policy from mechanism, could work for other systems.
+The raw performance number are specific to CephFS, but Mantle generalizes the results in two ways: (1) it lets us test a wide range of balancing policies on the same storage system, and (2) it shows that our techinque, of using hooks to separate policy from mechanism, could work for other systems.
 
-> How does Mantle scale?
-> - reviewer 3
+> 3. How does Mantle scale?
 
-The system will scale with the number of servers but the balancer gets more finicky the more MDSs that get added (this statement is anecdotal). While we agree that scalability is important, we stress that our conclusions stress efficiency: for a given workload, is it better to immediately spread load aggressively or to understand the capacity of your MDS to split load at the right time under the right conditions. The latter argument is more appealing but has more complexity and this paper tries to demonstrate the benefits of such an approach. While we do not come up with an architecture that is better than the state-of-the-art (e.g., GIGA+) or that works well for many workloads, we do present a framework that looks at these factors from a different angle and gives rise to a system that can explore these different strategies in a holistic way.
+The system will scale with the number of servers but the balancer gets more finicky the more MDSs that get added (this statement is anecdotal). While we agree that scalability is important, we stress that our conclusions stress efficiency: for a given workload, is it better to immediately spread load aggressively or to understand the capacity of your MDS to split load at the right time under the right conditions. We show how the second option is more appealing but acknowledge that it introduces significant complexity. While we do not come up with an architecture that is better than the state-of-the-art (e.g., GIGA+) or that works well for many workloads, we do present a framework that looks at these factors from a different angle and gives rise to a system that can explore these different strategies in a holistic way.
 
 ## Reviewer 1: 
 
 > 1. How linked to CephFS is this system?
 
-above
+general question 2
 
 > 2. Can this technique be more sophisticated?
 
-The actual technique, of separating the metadata policy from its mechanisms, is left intentionally simple, but lets the administrator layer more sophisticated balancers, with different metrics, statistical modeling, or machine learning, on top is the intent.
+The actual technique, of separating the metadata policy from its mechanisms, is left intentionally simple, but lets the administrator layer more sophisticated balancers, with different metrics, statistical modeling, control feedback loops, or machine learning, on top is the intent.
 
-> 3. Why didn`t  we use different kinds of loads (instead of just creates in separate directories)?
+> 3. Why did we focus on just creates in separate directories instead of a different kinds of loads?
 
-above
+general question 1
 
 ## Reviewer 2: 
 
-> 1. Is compiling Linux and creating a bunch of files in a directory representative of supercomputing loads? Why isn`t there a suit of file-intensive scientific laods?
+> 1. Is compiling Linux and creating a bunch of files in a directory representative of supercomputing loads? there a suite of file-intensive scientific loads?
 
-above
+general question 1
 
 > 2. What are the contributions? If the contribution is the effect that policies have on behavior, then there needs to be a more comprehensive set of workloads.
 
 Although we strive to quantify the effect that policies on performance, in this paper we only show how certain policies can improve or degrade performance. We try to stay away from characterizing different workloads and finding balancers tailored to them and instead focus on the system itself. Of course, running a suite of workloads over Mantle is future work. The novelty of our system is that it can provide a gneeral framework for expressing and testing a range of balancing techinque, while minimizing the overhead of porting the balancer to different systems
 
 ### Other comments: 
-- CephFS doesn`t have hysteresis?
+- CephFS does not have hysteresis?
 - Typos
 
 ## Reviewer 3:
 
-> 1. Can I trust the metrics that Mantle uses, especially, since the effects on system as a whole has such had variability?
+> 1. Can I trust the metrics that Mantle uses, especially, since the effects on the system as a whole has such had variability?
 
-Finding the metrics that reflect the system`s state is one of the main use cases for Mantle! Mantle pulls out ALL the metrics that could be important (i.e. ones that we think, based on empirical evidence, are important) so that the adminsistrator can freely explore them. Unfortunately, if we need a metric that Mantle doesn`t expose, we nee d to open up CephFS and add it - but this overhead isn`t any worse than what we`d have to do with plain old CephFS. For example, one of the metrics that we started with was a running average of the CPU utilization, but we deteremined that this is insufficient for flash crowds, so we had to modify Mantle to expose the instantaneous CPU utilization. 
+Finding the metrics that reflect the systems state is one of the main use cases for Mantle! Mantle pulls out ALL the metrics that could be important (i.e. ones that we think, based on empirical evidence, are important) so that the adminsistrator can freely explore them. Unfortunately, if we need a metric that Mantle doesn't expose, we nee d to open up CephFS and add it - but this overhead isn't any worse than what we'd have to do with plain old CephFS. For example, one of the metrics that we started with was a running average of the CPU utilization, but we deteremined that this is insufficient for flash crowds, so we had to modify Mantle to expose the instantaneous CPU utilization. 
 
-2) How representative is our small test system? Does variability increase with more clients?
-above
+> 2. How representative is our small test system? Does variability increase with more clients?
 
-3) What empirical observations/tests helped us arrive at the heuristics in the paper?
+general question 3
 
-The heuristics we explore are from related work. Spill evenly is from GIGA+, Spill and Fill is a variation of LARD (we actually didn`t see this paper until recently, but it will cited in the final version), and the Adaptable balancer is the original CephFS balancer policy. We find thresholds for the spill and fill technique using the latency vs. throughput graph in Fig. 5, but for the most part, these heuristics are just starting points for showing the power of Mantle and we are not ready to make grandiose statements about which is best... yet.
+> 3. What empirical observations/tests helped us arrive at the heuristics in the paper?
+
+The heuristics we explore are from related work. Spill evenly is from GIGA+, Spill and Fill is a variation of LARD (we actually didn't see this paper until recently, but it will cited in the final version), and the Adaptable balancer is the original CephFS balancer policy. We find thresholds for the spill and fill technique using the latency vs. throughput graph in Fig. 5, but for the most part, these heuristics are just starting points for showing the power of Mantle and we are not ready to make grandiose statements about which is best... yet.
 
 ### Other comments
 - presentation: Sections 2-3 are too long are background
@@ -69,35 +66,61 @@ The heuristics we explore are from related work. Spill evenly is from GIGA+, Spi
 Typos:
 - objective clause 
 
-1) How specific to CephFS are the results?
+> 1. How specific to CephFS are the results?
 
-2) Is the complexity and poor behavior arguments AGAINST the use of dynamic subtree partitioning? 
+general quetion 2
 
-3) Why did you choose the creates, one of the worst workloads?
+> 2. Is the complexity and poor behavior arguments AGAINST the use of dynamic subtree partitioning? 
 
-4) What are the advantages of Mantle over a sharded key value store?
+Yes, but Mantle's flexibility is appealing and warrants exploration. In future versions of the paper, we will rename Section 3 "Dynamic Subtree Paritioning Challenges".
 
-5) What are the benevits of locality?
-- combat his critique of reducing requests, lowering communication, memory pressure
+> 3. Why did you choose creates, one of the worst workloads?
 
-6) What is the basic client-server metadata protocols? 
+general question 1
+
+> 4. What are the advantages of Mantle over a sharded key value store?
+
+The flexibility to explore the benefits of locality (see 5) vs. hashing.
+
+> 5. What are the benefits of locality?
+
+- reducing requests: figure 3
+- lowering communication: ??
+- memory pressure: caching inodes
+TODO: 
+
+> 6 What is the basic client-server metadata protocols? 
 - e.g., why does a single client run 18% slower on 2 MDSs
 
+TODO:
+
 7) How do you know that the load is saturating the system? How does the system scale?
+
+Our experiments 
 - is there problems with many MDSs and cold files (collective memory of MDSs)?
 - the scalability story is not strong
-    - we show that you don`t need x MDSs to do a job that doesn`t require it
+    - we show that you do not need x MDSs to do a job that doesn't require it
 - many many more questions
 
 8) Why do we compare against running a single client running a single make?
 
+We agree that 1 client compiling with 1 MDS isn't interesting, but the point of Figure 9 is that Mantle can spread metadata across the MDSs in different ways. The interesting result is 3 clients don't saturate the system enough to make distribution worthwhile and that 5 clients with 3 MDSs is just as efficient as 4 or 5 clients.
+
 9) What are the details of the metadata protocols and is there a cost model of MDS operations?
+
+TODO:
 
 10) How does the MDS forward work? Why is there so much overhead?
 
-11) Why does reproducibility prevent us from using error bards?
+Forwards happen when a client requests metadata that the MDS doesn't have. The MDS forwards the request to the correct MDS and the client updates its cache so that it will contact the correct MDS in the future. If the subtrees are partitioned poorly across the MDS nodes (e.g., the root inode is on MDS1 and the rest are on MDS2), then path traversals incurr many forwards. 
 
-12) What about control (such as, I don`t want that load) or feedback loop?
+11) Why does reproducibility prevent us from using error bars?
+
+You are correct, this will make our story stronger. We will add error bars in future revisions.
+
+12) What about control (such as, I don't want that load) or feedback loop?
+
+general question 2 (also future work)
 
 13) Figure 7: difference between fill and spill and spill evenly
 
