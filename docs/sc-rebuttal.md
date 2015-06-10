@@ -14,12 +14,14 @@ Checkpoint/restart, which is characterized by many, concurrent creates, is a com
 
 The raw performance number are specific to CephFS, but Mantle generalizes the strategies of many systems by supporting the exploration of a wide range of balancing policies on the same storage system. The biggest flaw in our paper is not properly contextualizing how Mantle fits into the related work. We are not arguing that Mantle is more scalable or better performing than GIGA+. Instead, we use Mantle to highlight how locality can improve performance in a distributed file systems.
 
-Future revisions of the paper will expand on Section 2.4 and Fig. 3, as the success of dynamic subtree partitioning is contingent on whether these factors are true. We will also expand on GIGA+ in the related work, becuse it was never our intention to "dismiss" GIGA+, rather, we want to highlight its strategy in comparison to other strategies using Mantle. While it is natural to compare raw performance numbers in an apples-to-apples way, we feel (and not just because GIGA+ outperforms Mantle) that we are attacking an orthogonal issue by providing a system for which we can test the strategies of the systems, rather than the systems themselves.
+Future revisions of the paper will expand on Section 2.4 and Fig. 3, as the success of dynamic subtree partitioning is contingent on whether these factors are true. We will also expand on GIGA+ in the related work, because it was never our intention to "dismiss" GIGA+, rather, we want to highlight its strategy in comparison to other strategies using Mantle. While it is natural to compare raw performance numbers in an apples-to-apples way, we feel (and not just because GIGA+ outperforms Mantle) that we are attacking an orthogonal issue by providing a system for which we can test the strategies of the systems, rather than the systems themselves.
 
 ### 3. How does Mantle scale?
 - reviewer 3, 4, 5
 
-We agree that scalability is important. But please keep in mind that many parallel file systems deployed in today's production environments use a metadata service that is still limited to a very small number of nodes (less than 10, often less than 5). We found that our balancer in its current state is robust until about 20 nodes, at which point there is increased variability in the client's performance (as reviewer 3 notes) for reasons that we are still investigating. In the near term, 20 nodes should provide enough scalability in production environments. Our focus in this paper is to explore infrastructures for better understanding of how to balance diverse distributed metadata workloads as they might occur in real production environments (not just file create workloads), and ask the question "for a given workload, is it better (1) to immediately spread load aggressively or (2) to first understand the capacity of MDS nodes before splitting load at the right time under the right conditions?" We show how the second option can lead to better performance but at the cost of increased complexity. While we do not come up with a solution that is better than state-of-the-art systems optimized for file creates (e.g., GIGA+), we do present a framework that allows users to study the emergent behavior of different strategies, both in research and in the class room.
+We agree that scalability is important. But please keep in mind that many parallel file systems deployed in today's production environments use a metadata service that is still limited to a very small number of nodes (less than 10, often less than 5). We found that our balancer in its current state is robust until about 20 nodes, at which point there is increased variability in the client's performance (as reviewer 3 notes) for reasons that we are still investigating. In the near term, 20 nodes should provide enough scalability in production environments. Our focus in this paper is to explore infrastructures for better understanding of how to balance diverse distributed metadata workloads as they might occur in real production environments (not just file create workloads), and ask the question "for a given workload, is it better (1) to immediately spread load aggressively or (2) to first understand the capacity of MDS nodes before splitting load at the right time under the right conditions?" We show how the second option can lead to better performance but at the cost of increased complexity. While we do not come up with a solution that is better than state-of-the-art systems optimized for file creates (e.g., GIGA+), we do present a framework that allows users to study the emergent behavior of different strategies, both in research and in the classroom.
+
+A deeper scalability analysis is future work. We suspect many interesting problems with the current architure (e.g., the memory pressure with many cold files and the n-way communication model for the MDSs noted by reviewer 4); we are working with the Ceph team now to hammer out some of these early issues.
 
 ### 1. Can this technique be more sophisticated?
 - reviewer 1, 4, 5
@@ -46,18 +48,7 @@ The heuristics we explore are from related work. Spill evenly is from GIGA+, fil
 
 Yes, the paper spends too much time framing the complexity of dynamic subtree partitioning, but the takeaway should have been that  Mantle's flexibility is appealing and warrants exploration. In future versions of the paper, we will compress Section 3 and rename it "Dynamic Subtree Paritioning Challenges". 
 
-### 2. What are the advantages of Mantle over a sharded key value store? If the answer is locality, I don't buy it.
-
-Mantle lets us explore the benefits of locality and hashing. The intent of Figure 3 is to show how the number of requests affects performance. As you noted, this can be achieved with client side caching, but CephFS (as well as many other file systems) do not have that design, for a variety of reasons.
-
-Rather t
-The success of Mantle's dynamic subtree partitioning is contingent 
-- reducing requests: figure 3
-- lowering communication: ??
-- memory pressure: caching inodes
-TODO: 
-
-### 6 What is the basic client-server metadata protocols? Is there a cost model
+### 2 What is the basic client-server metadata protocols? Is there a cost model
 
 The last two bullets in Section 2.2 allude to the protocols but do a poor job of explaining them. Future versions will have a whole section devoted to it. As the reviewer notes, the papers are old and do not explain the protocols either, so for more information, see Sage's thesis and the code, which is open source. To answer your questions: 
 
@@ -65,23 +56,24 @@ MDS/Client interaction: MDS nodes and clients cache a configurable number of ino
 
 Permissions: the MDS alters flags (saved in the directory as a state machine) to control writes and reads permissions. For coherency, MDSs will do a scatter-gather process, which has each MDS halt updates on a directory, send stats around the cluster, and then wait for the authoritative MDS to send back new data. These are done inside sessions (discussed in Section 5.1.1), which drag down our performance and leads to the less than desirable 18% slowdown from 1 MDS to 2 MDSs. 
 
-### 7. How do you know that the load is saturating the system? How does the system scale?
+### 3. What are the advantages of Mantle over a sharded key value store? If the answer is locality, I don't buy it.
 
-Our experiments 
-- is there problems with many MDSs and cold files (collective memory of MDSs)?
-- the scalability story is not strong
-    - we show that you do not need x MDSs to do a job that doesn't require it
-- many many more questions
+Mantle explores the benefits of locality and hashing. The advantages of locality are:
+- reducing requests: refers to "forwarded requests" between MDS nodes (see question 2). Figure 3 alters the degree of locality by changing how metadata is distributed; with less locality, the performance gets worse and the number of requests increases. As you noted, client caching can reduce the requests between clients and MDS nodes, but CephFS (as well as many other file systems) do not have that design, for a variety of reasons.
+- lowering communication: refers to the coherency protocols for maintaing permissions (see question 2).
+- memory pressure: refers to the memory needed to cache path prefixes for improving path traversals. If metadata is spread, the MDS cluster replicates parent inode metadata so that path traversals can be resolved locally.
 
-### 8. Why do we compare against running a single client running a single make?
+Most of these arguments are made in SC'06 paper, but we agree they are extremeley relevant, so in future revisions, we will devote a whole section it.
+
+### 4. Why do we compare against running a single client running a single make?
 
 We agree that 1 client compiling with 1 MDS isn't interesting, but the point of Figure 9 is that Mantle can spread metadata across the MDSs in different ways. The interesting result is 3 clients don't saturate the system enough to make distribution worthwhile and that 5 clients with 3 MDSs is just as efficient as 4 or 5 clients.
 
-### 10. How does the MDS forward work? Why is there so much overhead?
+### 5. How does the MDS forward work? Why is there so much overhead?
 
 Forwards happen when a client requests metadata that the MDS doesn't have. The MDS forwards the request to the correct MDS and the client updates its cache so that it will contact the correct MDS in the future. If the subtrees are partitioned poorly across the MDS nodes (e.g., the root inode is on MDS1 and the rest are on MDS2), then path traversals incurr many forwards. 
 
-### 11. Why does reproducibility prevent us from using error bars?
+### 6. Why does reproducibility prevent us from using error bars?
 
 You are correct, this will make our story stronger. We will add error bars in future revisions.
 
@@ -98,5 +90,3 @@ The original balancer does indeed decide how much to send, but it uses one heuri
 ### 3. Clarification questions about the graphs and Mantle's architecture
 
 We apologize that the descriptions weren't clear and will work to address these in future revisions.
-
-- biggest issues: scalability, locality, contributions
