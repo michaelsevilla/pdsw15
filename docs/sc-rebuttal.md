@@ -48,11 +48,13 @@ The heuristics we explore are from related work. Spill evenly is from GIGA+, fil
 
 Yes, the paper spends too much time framing the complexity of dynamic subtree partitioning, but the takeaway should have been that  Mantle's flexibility is appealing and warrants exploration. In future versions of the paper, we will compress Section 3 and rename it "Dynamic Subtree Paritioning Challenges". 
 
-### 2 What is the basic client-server metadata protocols? Is there a cost model
+### 2 What is the basic client-server metadata protocols? Is there a cost model? How does the MDS forward work? Why is there so much overhead?
 
 The last two bullets in Section 2.2 allude to the protocols but do a poor job of explaining them. Future versions will have a whole section devoted to it. As the reviewer notes, the papers are old and do not explain the protocols either, so for more information, see Sage's thesis and the code, which is open source. To answer your questions: 
 
-MDS/Client interaction: MDS nodes and clients cache a configurable number of inodes. For creates, the client will issue a getattr, lookup, and create. Before reaching out to the MDS, the client will try to resolve the getattr and lookup locally (not the create itself like proposed in batchFS). The MDS nodes maintain the subtree boundaries and redirect requests to the "authority" MDS if a client's request falls outside of its jurisdiction. As the client receives responses, it builds up its own mapping of the namespace subtrees to MDS nodes.
+MDS/Client interaction: MDS nodes and clients cache a configurable number of inodes. For creates, the client will issue a getattr, lookup, and create. Before reaching out to the MDS, the client will try to resolve the getattr and lookup locally (not the create itself like proposed in batchFS). 
+
+Forwards: MDS nodes maintain the subtree boundaries and redirect requests to the "authority" MDS if a client's request falls outside of its jurisdiction. As the client receives responses, it builds up its own mapping of the namespace subtrees to MDS nodes. If the subtrees are partitioned poorly across the MDS nodes (e.g., the root inode is on MDS1 and the rest are on MDS2), then path traversals incurr many forwards. 
 
 Permissions: the MDS alters flags (saved in the directory as a state machine) to control writes and reads permissions. For coherency, MDSs will do a scatter-gather process, which has each MDS halt updates on a directory, send stats around the cluster, and then wait for the authoritative MDS to send back new data. These are done inside sessions (discussed in Section 5.1.1), which drag down our performance and leads to the less than desirable 18% slowdown from 1 MDS to 2 MDSs. 
 
@@ -69,11 +71,7 @@ Most of these arguments are made in SC'06 paper, but we agree they are extremele
 
 We agree that 1 client compiling with 1 MDS isn't interesting, but the point of Figure 9 is that Mantle can spread metadata across the MDSs in different ways. The interesting result is 3 clients don't saturate the system enough to make distribution worthwhile and that 5 clients with 3 MDSs is just as efficient as 4 or 5 clients.
 
-### 5. How does the MDS forward work? Why is there so much overhead?
-
-Forwards happen when a client requests metadata that the MDS doesn't have. The MDS forwards the request to the correct MDS and the client updates its cache so that it will contact the correct MDS in the future. If the subtrees are partitioned poorly across the MDS nodes (e.g., the root inode is on MDS1 and the rest are on MDS2), then path traversals incurr many forwards. 
-
-### 6. Why does reproducibility prevent us from using error bars?
+### 5. Why does reproducibility prevent us from using error bars?
 
 You are correct, this will make our story stronger. We will add error bars in future revisions.
 
