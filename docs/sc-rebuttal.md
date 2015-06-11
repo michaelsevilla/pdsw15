@@ -1,14 +1,14 @@
 We thank the reviewers for their time and thoughtful suggestions.
 
 # General questions
-###1. Why is there a limited number of workloads? Are they representative of HPC? Are the results specific to CephFS?
+###1. Why is there a limited number of workloads? Are they representative of HPC?
 (reviewer 1, 2, 4)
 
 We take a comprehensive look at 3 balancers for a smaller number of workloads to show how load is split across MDSs. Since our contribution is a general API/framework for specifying different balancers, we emphasize Mantle's ability to explore different strategies on the same storage system, instead of drawing conclusions about which balancers are best for a given workload (this is future work).
 
 Checkpoint/restart (e.g., concurrent creates) is a common HPC paradigm that is terrible for metadata services (as reviewer 4 notes). We use it because it (1) stresses the system, (2) is the focus of other state-of-the-art metadata systems (e.g., GIGA+), and (3) is a real problem (see related work). Compiling the Linux kernel is not as common, but we choose it because it has different metadata request types/frequencies and because users plan to use CephFS as a backup repository, shared file system, file server, or compute backend.
 
-###2. How does Mantle scale? Are the performance numbers specific to CephFS?
+###2. How does Mantle scale? Are results specific to CephFS?
 (reviewer 3, 4, 5)
 
 We agree that scalability is important. But please keep in mind that many parallel file systems deployed in today's production environments use a metadata service that is still limited to a very small number of nodes (less than 10, often less than 5). We found that our balancer in its current state is robust until about 20 nodes, at which point there is increased variability in the client's performance (as reviewer 3 notes) for reasons that we are still investigating. A deeper scalability analysis is future work. We suspect many interesting problems with the current architure (e.g., the memory pressure with many cold files and the n-way communication model for the MDSs, as noted by reviewer 4) and we are working with the Ceph team on some of these early issues. 
@@ -20,13 +20,13 @@ Mantle is not a competitor to GIGA+; we just use the GIGA+ strategy to better un
 ### 4. Can this technique be more sophisticated?
 (reviewer 1, 4, 5)
 
-For future work, we will layer sophisticated balancers, with different metrics, statistical modeling, control feedback loops, and machine learning techniques, on top of Mantle. Mantle's ability to save state is a feature aimed at supporting such layers. One issue, as noted by reviewer 5, is that the current prototype doesn't stop the administrator from doing stupid things, like spawning threads, using all the memory to write state, or injecting a "while 1". 
+For future work, we will layer more complex balancers on top of Mantle. Mantle's ability to save state is a feature aimed at supporting things like statistical modeling, control feedback loops, and machine learning techniques. One issue, as noted by reviewer 5, is that the current prototype doesn't stop the administrator from doing stupid things, like spawning threads, using all the memory to write state, or injecting a "while 1". 
 
 # Detailed Feedback
 ## Reviewer 2: 
-### 1. What are the contributions? If the contribution is the effect that policies have on behavior, there needs to be a more comprehensive set of workloads.
+### 1. What are the contributions? Separating policy from mechanism is not a contribution and if the contribution is the effect that policies have on behavior, there needs to be a more comprehensive set of workloads.
 
-Although we strive to quantify the effect that policies have on performance, in this paper we only show how certain policies can improve or degrade performance. We stay away from finding the best balancers for many different workloads and instead focus on how the API is flexible to enough to express many strategies. Of course, running a suite of workloads over Mantle is future work. We agree that separating policy from mechanism is not a novel contribution, so in future revisions, we will focus our contributions on the balancing API and the framework for testing different strategies.
+Although we strive to quantify the effect that policies have on performance, in this paper we only show how certain policies can improve or degrade performance. While separating policy from mechanism is a standard systems technique, applying it to a new problem can still be novel, particularly where nobody previously realized they were separable or has tried to separate them. In future revions, we will do a better job of explaining why this technique is useful in this situation. 
 
 ## Reviewer 3:
 ### 1. Can I trust the metrics that Mantle uses, especially, since their effects on the system as a whole has such variability?
