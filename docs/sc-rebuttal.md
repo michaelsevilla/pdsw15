@@ -1,37 +1,32 @@
 We thank the reviewers for their time and thoughtful suggestions.
 
 # General questions
-### 1. Why do we report a limited number of workloads and are these workloads representative of many HPC applications?
-- reviewer 1, 2, 4
+###1. Why is there a limited number of workloads? Are they representative of HPC?
+(reviewer 1, 2, 4)
 
-We present in-depth profiles (throughput curves over time) of 3 Mantle balancers (along with slight tweaks to the policies that bring the total number of policies to 6) for a smaller number of workloads to give a more comprehensive view of how load is split across MDS nodes. Since our contribution is a general framework for testing and specifying different balancing scripts, we felt that space was better utilized by showing how the balancer can achieve multiple balancers on the same storage system, instead of drawing broad conclusion about which balancers are best for a given workload - this is future work.
+We take a comprehensive look at 3 balancers for a smaller number of workloads to show how load is split across MDSs. Since our contribution is a general API/framework for specifying different balancers, we emphasize Mantle's ability to explore different strategies on the same storage system, instead of drawing conclusions about which balancers are best for a given workload (this is future work).
 
-Checkpoint/restart, which is characterized by many, concurrent creates, is a common HPC paradigm. We use it as a benchmark, even though it is notoriously terrible for metadata services (as reviewer 4 notes) for 3 reasons: (1) it does a good job of stressing the system, (2) it has been exclusively studied in the most state-of-the-art systems (e.g., GIGA+), and (3) it is a real problem (we will shore up our related work with more references to demonstrate this point). Compiling the Linux kernel is not as common, but we choose it because it exhibits a wider range of metadata requests types/frequencies and because users plan to use CephFS as a backup repository, a shared file system, and file server, and/or a compute backend (according to personal communication with Ceph developers and the mailing list).
+Checkpoint/restart (e.g., concurrent creates) is a common HPC paradigm that is terrible for metadata services (as reviewer 4 notes). We use it because it (1) stresses the system, (2) is the focus of other state-of-the-art metadata systems (e.g., GIGA+), and (3) is a real problem (see related work). Compiling the Linux kernel is not as common, but we choose it because it has different metadata request types/frequencies and because users plan to use CephFS as a backup repository, shared file system, file server, or compute backend.
 
-### 2. How specific to CephFS are the results?
-- reviewer 1, 4
+###2. How does Mantle scale? Are results specific to CephFS?
+(reviewer 3, 4, 5)
 
-The raw performance number are specific to CephFS, but Mantle generalizes the strategies of many systems by supporting the exploration of a wide range of balancing policies on the same storage system. The biggest flaw in our paper is not properly contextualizing how Mantle fits into the related work. We are not arguing that Mantle is more scalable or better performing than GIGA+. Instead, we use Mantle to highlight how locality can improve performance in a distributed file systems.
+We agree that scalability is important. But please keep in mind that many parallel file systems deployed in today's production environments use a metadata service that is still limited to a very small number of nodes (less than 10, often less than 5). We found that our balancer in its current state is robust until about 20 nodes, at which point there is increased variability in the client's performance (as reviewer 3 notes) for reasons that we are still investigating. A deeper scalability analysis is future work. We suspect many interesting problems with the current architure (e.g., the memory pressure with many cold files and the n-way communication model for the MDSs, as noted by reviewer 4) and we are working with the Ceph team on some of these early issues. 
 
-Future revisions of the paper will expand on Section 2.4 and Fig. 3, as the success of dynamic subtree partitioning is contingent on whether these factors are true. We will also expand on GIGA+ in the related work, becuse it was never our intention to "dismiss" GIGA+, rather, we want to highlight its strategy in comparison to other strategies using Mantle. While it is natural to compare raw performance numbers in an apples-to-apples way, we feel (and not just because GIGA+ outperforms Mantle) that we are attacking an orthogonal issue by providing a system for which we can test the strategies of the systems, rather than the systems themselves.
+The raw performance numbers in the paper are specific to CephFS, but we emphasize that Mantle is a tool for exploring load balancing in distributed file systems. In this paper, we explore infrastructures for better understanding of how to balance diverse distributed metadata workloads as they might occur in real production environments (not just file create workloads), and ask the question "for a given workload, is it better (1) to immediately spread load aggressively or (2) to first understand the capacity of MDS nodes before splitting load at the right time under the right conditions?" We show how the second option can lead to better performance but at the cost of increased complexity. While we do not come up with a solution that is better than state-of-the-art systems optimized for file creates (e.g., GIGA+), we do present a framework that allows users to study the emergent behavior of different strategies, both in research and in the classroom.
 
-### 3. How does Mantle scale?
-- reviewer 3, 4, 5
+Mantle is not a competitor to GIGA+; we just use the GIGA+ strategy to better understand the different techniques of spreading load. We are not arguing that Mantle is more scalable or better performing than GIGA+, so future revisions will do a better job of placing Mantle in the correct context, in relation to related work.
 
-We agree that scalability is important. But please keep in mind that many parallel file systems deployed in today's production environments use a metadata service that is still limited to a very small number of nodes (less than 10, often less than 5). We found that our balancer in its current state is robust until about 20 nodes, at which point there is increased variability in the client's performance (as reviewer 3 notes) for reasons that we are still investigating. In the near term, 20 nodes should provide enough scalability in production environments. Our focus in this paper is to explore infrastructures for better understanding of how to balance diverse distributed metadata workloads as they might occur in real production environments (not just file create workloads), and ask the question "for a given workload, is it better (1) to immediately spread load aggressively or (2) to first understand the capacity of MDS nodes before splitting load at the right time under the right conditions?" We show how the second option can lead to better performance but at the cost of increased complexity. While we do not come up with a solution that is better than state-of-the-art systems optimized for file creates (e.g., GIGA+), we do present a framework that allows users to study the emergent behavior of different strategies, both in research and in the classroom.
+### 4. Can this technique be more sophisticated?
+(reviewer 1, 4, 5)
 
-A full scalability analysis is future work, where we predict we will see issues if the namespace does not fit in the collective memories of the MDS nodes (especially with cold files, as reviewer 4 notes) and with n-way coherency. 
+For future work, we will layer more complex balancers on top of Mantle. Mantle's ability to save state is a feature aimed at supporting things like statistical modeling, control feedback loops, and machine learning techniques. One issue, as noted by reviewer 5, is that the current prototype doesn't stop the administrator from doing stupid things, like spawning threads, using all the memory to write state, or injecting a "while 1". 
 
-### 1. Can this technique be more sophisticated?
-- reviewer 1, 4, 5
-The actual technique, of separating the metadata policy from its mechanisms, is left intentionally simple, but lets the administrator layer more sophisticated balancers, with different metrics, statistical modeling, control feedback loops, or machine learning, on top is the intent. Mantle's ability to save state is a feature aimed at supporting such layers. One issue, as noted by reviewer 5, is that the current prototype doesn't stop the administrator from doing stupid things, like spawning a bunch of threads, using all the memory to write state, or injecting a "while 1". 
-
-## Reviewer 1: 
-
+# Detailed Feedback
 ## Reviewer 2: 
-### 1. What are the contributions? If the contribution is the effect that policies have on behavior, there needs to be a more comprehensive set of workloads.
+### 1. What are the contributions? Separating policy from mechanism is not a contribution and if the contribution is the effect that policies have on behavior, there needs to be a more comprehensive set of workloads.
 
-Although we strive to quantify the effect that policies have on performance, in this paper we only show how certain policies can improve or degrade performance. We stay away from finding the best balancers for many different workloads and instead focus on how the API is flexible to enough to express many strategies. Of course, running a suite of workloads over Mantle is future work. We agree that separating policy from mechanism is not a novel contribution, so in future revisions, we will focus our contributions on the balancing API and the framework for testing different strategies.
+Although we strive to quantify the effect that policies have on performance, in this paper we only show how certain policies can improve or degrade performance. While separating policy from mechanism is a standard systems technique, applying it to a new problem can still be novel, particularly where nobody previously realized they were separable or has tried to separate them. In future revions, we will do a better job of explaining why this technique is useful in this situation. 
 
 ## Reviewer 3:
 ### 1. Can I trust the metrics that Mantle uses, especially, since their effects on the system as a whole has such variability?
@@ -51,27 +46,27 @@ Yes, the paper spends too much time framing the complexity of dynamic subtree pa
 
 The last two bullets in Section 2.2 allude to the protocols but do a poor job of explaining them. Future versions will have a whole section devoted to it. As the reviewer notes, the papers are old and do not explain the protocols either, so for more information, see Sage's thesis and the code, which is open source. To answer your questions: 
 
-MDS/Client interaction: MDS nodes and clients cache a configurable number of inodes. For creates, the client will issue a getattr, lookup, and create. Before reaching out to the MDS, the client will try to resolve the getattr and lookup locally (not the create itself like proposed in batchFS). The MDS nodes maintain the subtree boundaries and redirect requests to the "authority" MDS if a client's request falls outside of its jurisdiction. As the client receives responses, it builds up its own mapping of the namespace subtrees to MDS nodes.
+MDS/Client interaction: MDS nodes and clients cache a configurable number of inodes. For creates, the client will issue a getattr, lookup, and create. Before reaching out to the MDS, the client will try to resolve the getattr and lookup locally (not the create itself like proposed in batchFS). 
+
+Forwards: MDS nodes maintain the subtree boundaries and redirect requests to the "authority" MDS if a client's request falls outside of its jurisdiction. As the client receives responses, it builds up its own mapping of the namespace subtrees to MDS nodes. If the subtrees are partitioned poorly across the MDS nodes (e.g., the root inode is on MDS1 and the rest are on MDS2), then path traversals incurr many forwards. 
 
 Permissions: the MDS alters flags (saved in the directory as a state machine) to control writes and reads permissions. For coherency, MDSs will do a scatter-gather process, which has each MDS halt updates on a directory, send stats around the cluster, and then wait for the authoritative MDS to send back new data. These are done inside sessions (discussed in Section 5.1.1), which drag down our performance and leads to the less than desirable 18% slowdown from 1 MDS to 2 MDSs. 
 
+Future revisions of the paper will expand on Section 2.4 and Fig. 3, as the success of dynamic subtree partitioning is contingent on whether these factors are true. We will also expand on GIGA+ in the related work, because it was never our intention to "dismiss" GIGA+, rather, we want to highlight its strategy in comparison to other strategies using Mantle. While it is natural to compare raw performance numbers in an apples-to-apples way, we feel (and not just because GIGA+ outperforms Mantle) that we are attacking an orthogonal issue by providing a system for which we can test the strategies of the systems, rather than the systems themselves.
 ### 3. What are the advantages of Mantle over a sharded key value store? If the answer is locality, I don't buy it.
 
-Mantle explores locality and hashing. The advantages of locality:
-- reducing requests: this should be "reducing forwarded requests"; we are referring to the extra messages MDS nodes exchange when a client's request has to be forwarded to another MDS. Figure 3 shows that distribution hurts performance in CephFS because of the extra metadata requests. As you noted, this can be achieved with client side caching, but CephFS does not have that design, for a variety of reasons.
-- lowering communication: refers to the coherency protocols and sessions discussed in question 2
-- memory pressure: distributing metadata forces MDS nodes to cache prefixes; the more distribution, the more redundant prefixes in the system as a whole.
-Many of these concepts are discussed in the SC'06 paper, but again, that paper does not present the current metadata protocols - in the paper we will add a citation to that sentence for the curious reader.
+Mantle explores the benefits of locality and hashing. The advantages of locality are:
+- reducing requests: refers to "forwarded requests" between MDS nodes (see question 2). Figure 3 alters the degree of locality by changing how metadata is distributed; with less locality, the performance gets worse and the number of requests increases. As you noted, client caching can reduce the requests between clients and MDS nodes, but CephFS (as well as many other file systems) do not have that design, for a variety of reasons.
+- lowering communication: refers to the coherency protocols for maintaing permissions (see question 2).
+- memory pressure: refers to the memory needed to cache path prefixes for improving path traversals. If metadata is spread, the MDS cluster replicates parent inode metadata so that path traversals can be resolved locally.
+
+Most of these arguments are made in SC'06 paper, but we agree they are extremeley relevant, so in future revisions, we will devote a whole section it.
 
 ### 4. Why do we compare against running a single client running a single make?
 
 We agree that 1 client compiling with 1 MDS isn't interesting, but the point of Figure 9 is that Mantle can spread metadata across the MDSs in different ways. The interesting result is 3 clients don't saturate the system enough to make distribution worthwhile and that 5 clients with 3 MDSs is just as efficient as 4 or 5 clients.
 
-### 5. How does the MDS forward work? Why is there so much overhead?
-
-Forwards happen when a client requests metadata that the MDS doesn't have. The MDS forwards the request to the correct MDS and the client updates its cache so that it will contact the correct MDS in the future. If the subtrees are partitioned poorly across the MDS nodes (e.g., the root inode is on MDS1 and the rest are on MDS2), then path traversals incurr many forwards. 
-
-### 6. Why does reproducibility prevent us from using error bars?
+### 5. Why does reproducibility prevent us from using error bars?
 
 We agree, that his will make our story stronger, so we will add error bars in future revisions.
 
