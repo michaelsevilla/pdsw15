@@ -11,7 +11,7 @@ We use a create workload because it stresses the system, is the focus of other s
 ###2. How does Mantle scale? Are results specific to CephFS?
 (reviewer 3,4,5)
 
-We agree that scalability is important. But please keep in mind that many file systems deployed in today's production systems use a metadata service that is still limited to a very small number of nodes (less than 10, often less than 5) [1]. Our balancer in its current state is robust until about 20 nodes, at which point there is increased variability in the client's performance (as reviewer 3 predicted) for reasons that we are still investigating. A deeper scalability analysis future work and we expect to encounter many interesting problems with the current architure (e.g., the memory pressure and n-way communication model as noted by reviewer 4).
+We agree that scalability is important. But please keep in mind that many file systems deployed in today's production systems use a metadata service that is still limited to a very small number of nodes (less than 10, often less than 5) [1]. Our balancer in its current state is robust until 20 nodes, at which point there is increased variability in the client's performance (as reviewer 3 predicted) for reasons that we are still investigating. A deeper scalability analysis is future work and we expect to encounter many interesting problems with the current architure (e.g., the memory pressure and n-way communication model as noted by reviewer 4).
 
 In this paper, we explore infrastructures for better understanding of how to balance diverse metadata workloads as they might occur in real production environments (not just file create workloads), and ask the question "for a given workload, is it better to spread load aggressively or to first understand the capacity of MDSs before splitting load at the right time under the right conditions?". Performance numbers are specific to CephFS, but our contribution is the framework that allows users to study the emergent behavior of different strategies, both in research and in the classroom.
 
@@ -35,7 +35,7 @@ Mantle pulls out metrics that could be important so that the administrator can f
 
 ###2. What empirical observations helped us arrive at the heuristics in the paper?
 
-The heuristics are from related work: spill evenly is GIGA+, fill and spill is LARD, the adaptable balancer is the original CephFS policy. The revised version will condense Sections 2/3 to make room for this explanation.
+Revised version will condense Sections 2/3 and will make it clear that the heuristics are strategies from related work (GIGA+, LARD, original CephFS).
 
 ##Reviewer 4:
 This feedback is exceptional and we'd welcome an opportunity to openly discuss (without a wordcount limit) ALL the issues raised. We feel the discussions would benefit both GIGA+ and CephFS.
@@ -45,22 +45,13 @@ This feedback is exceptional and we'd welcome an opportunity to openly discuss (
 Justification for DSP is in [2], but future revisions of our paper will expand on:
 - reducing requests: "forwards" between MDSs (Figure 3). 
 - lowering communication: the messages for coherency.
-- memory pressure: space for caching parent inodes used for path traversal. Distributing metadata replicates inodes, which takes more space.
+- memory pressure: space for caching parent inodes used for path traversal. Distribution replicates inodes.
 
 ###2. What are the client-server metadata protocols? Is there a cost model?
 
-[3] and the Ceph code (open source) have more details, but future versions of the paper will expand on the bullets in Section 2.2. MDSs/clients cache inodes, so the client will try to resolve the getattr/lookups locally. MDSs maintain the subtree boundaries and "forwards" requests for other subtrees to the "authority" MDS. Clients builds their own mappings of the subtrees to MDSs as they receive responses. For coherency, MDSs do a scatter-gather process which has overhead (many messages for stats/deltas). MDSs and clients maintain sessions (Section 5.1.1), which also has overhead leading to the 18% slowdown from 1 MDS to 2 MDSs.
+[3] and the Ceph code (open source) have more details, but future versions of the paper will expand on the bullets in Section 2.2. MDSs/clients cache inodes, so the client will try to resolve the getattr/lookups locally. MDSs maintain the subtree boundaries and "forwards" requests for other subtrees to the "authority" MDS. Clients build their own mappings of the subtrees to MDSs as they receive responses. For coherency, MDSs do a scatter-gather process which has overhead (many messages for stats/deltas). MDSs and clients maintain sessions (Section 5.1.1), which also has overhead leading to the 18% slowdown from 1 MDS to 2 MDSs.
 
-Cost models are the focus for our next paper; if developed properly, we can use them to design balaners in Mantle. 
-
-##Reviewer 5:
-### 1. What is the overhead of Lua?
-
-The gap between the 1 MDS curve (red) and the MDS0 curve in Figure 10. 
-
-### 2. Why can't the balancer decide how much to send? What about oscillation?
-
-The original balancer (running concurrently on all MDSs) uses one heuristic (biggest first) to send off directory fragments. Mantle executes multiple heuristics and chooses the best one, resulting in less oscillations.
+Cost models are the focus for our next paper; if developed properly, we can use them to design balancers in Mantle. 
 
 [1] personal communcation over the mailing list
 [2] SC paper
