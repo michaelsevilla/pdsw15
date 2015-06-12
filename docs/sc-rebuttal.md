@@ -17,25 +17,25 @@ The raw performance numbers in the paper are specific to CephFS, but we emphasiz
 
 Mantle is not a competitor to GIGA+; we just use the GIGA+ strategy to better understand the different techniques of spreading load. We are not arguing that Mantle is more scalable or better performing than GIGA+, so future revisions will do a better job of placing Mantle in the correct context, in relation to related work.
 
-### 4. Can this technique be more sophisticated?
+###3. Can this technique be more sophisticated?
 (reviewer 1, 4, 5)
 
 For future work, we will layer more complex balancers on top of Mantle. Mantle's ability to save state is a feature aimed at supporting things like statistical modeling, control feedback loops, and machine learning techniques. One issue, as noted by reviewer 5, is that the current prototype doesn't stop the administrator from doing stupid things, like spawning threads, using all the memory to write state, or injecting a "while 1". 
 
 # Detailed Feedback
 ## Reviewer 2: 
-### 1. What are the contributions? Separating policy from mechanism is not a contribution and if the contribution is the effect that policies have on behavior, there needs to be a more comprehensive set of workloads.
+###1. What are the contributions? Separating policy from mechanism is not a contribution and if the contribution is the effect that policies have on behavior, there needs to be a more comprehensive set of workloads.
 
 Although we strive to quantify the effect that policies have on performance, in this paper we only show how certain policies can improve or degrade performance. While separating policy from mechanism is a standard systems technique, applying it to a new problem can still be novel, particularly where nobody previously realized they were separable or has tried to separate them. In future revions, we will do a better job of explaining why this technique is useful in this situation. 
 
 ## Reviewer 3:
-### 1. Can I trust the metrics that Mantle uses, especially, since their effects on the system as a whole has such variability?
+###1. Can I trust the metrics that Mantle uses, especially, since their effects on the system as a whole has such variability?
 
-Finding the metrics that reflect the systems state is one of the main use cases for Mantle! Mantle pulls out ALL the metrics that could be important (i.e. ones that we think, based on empirical evidence, are important) so that the adminsistrator can freely explore them. Unfortunately, if we need a metric that Mantle doesn't expose, we need to open up CephFS and add it - but this overhead isn't any worse than what we'd have to do with plain old CephFS. For example, one of the metrics that we started with was a running average of the CPU utilization, but we deteremined that this is insufficient for flash crowds, so we had to modify Mantle to expose the instantaneous CPU utilization. 
+Discovering metrics that reflect system state is a main use cases for Mantle. Mantle pulls out ALL the metrics that could be important so that the adminsitrator can freely explore them. 
 
-### 2. What empirical observations/tests helped us arrive at the heuristics in the paper?
+###2. What empirical observations/tests helped us arrive at the heuristics in the paper?
 
-The heuristics we explore are from related work. Spill evenly is from GIGA+, fill and spill is a variation of LARD (we actually didn't see this paper until recently, but it will cited in the final version), and the adaptable balancer is the original CephFS policy. We find thresholds for the spill and fill technique using the latency vs. throughput graph in Fig. 5, but for the most part, these heuristics are just starting points for showing the power of Mantle and we are not ready to make grandiose statements about which is best... yet. The revised version of the paper will condense the background sections (2 and 3) to make room for this explanation.
+The heuristics are from related work: spill evenly is GIGA+, fill and spill is LARD, the adaptable balancer is the original CephFS policy. The revised version will cite LARD (just found this paper) and condense Sections 2 and 3 to make room for this explanation.
 
 ## Reviewer 4:
 ### 1. Is the complexity and poor behavior arguments AGAINST the use of dynamic subtree partitioning? 
