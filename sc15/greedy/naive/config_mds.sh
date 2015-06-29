@@ -1,22 +1,16 @@
 #!/bin/bash
-
 # Greedy spill balancer
 
+CEPH_SET="sudo ceph --admin-daemon /var/run/ceph/ceph-mds.$WHOAMI.asok config set"
+DIR="/home/msevilla/code/ceph/src/mds/libmantle/"
 WHOAMI=`cat /etc/hostname`
-$CEPH_SET="sudo ceph --admin-daemon /var/run/ceph/ceph-mds.$WHOAMI.asok config set"
-echo -n "2" > /tmp/balancer_state
-
-# Greedy spill balancer
 
 {
-    WHOAMI=`cat /etc/hostname`
-    $CEPH_SET="sudo ceph --admin-daemon /var/run/ceph/ceph-mds.$WHOAMI.asok config set"
-    echo -n "2" > /tmp/balancer_state
     
     # Debugging
     $CEPH_SET debug_mds 0
     $CEPH_SET debug_mds_migrator 0
-    $CEPH_SET debug_mds_balancer 10
+    $CEPH_SET debug_mds_balancer 2
     $CEPH_SET mds_bal_print_dfs 10
     $CEPH_SET mds_bal_print_dfs_metaload 0.5
     $CEPH_SET mds_bal_print_dfs_depth 4
@@ -27,6 +21,7 @@ echo -n "2" > /tmp/balancer_state
     $CEPH_SET mds_bal_frag 1
     $CEPH_SET mds_cache_size 0
     $CEPH_SET client_cache_size 0
+    echo -n "2" > /tmp/balancer_state
     
     # Configuration parameters (i.e. tunables)
     $CEPH_SET mds_bal_need_min 0.98
